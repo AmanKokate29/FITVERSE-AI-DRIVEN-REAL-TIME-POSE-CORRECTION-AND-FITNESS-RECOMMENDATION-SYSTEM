@@ -75,4 +75,101 @@ FITVERSE
 └── README.md
 ```
 
+## Screenshots
+
+### FitVerse Web
+
+<table>
+<tr>
+<td width="50%">
+
 <img src="./screenshots/home.jpg" alt="FitVerse Home" width="100%">
+
+</td>
+<td width="50%">
+
+<img src="./screenshots/dashboard2.jpg" alt="FitVerse Dashboard" width="100%">
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+<img src="./screenshots/exercisescoredashboard.jpg" alt="Exercise Score Dashboard" width="100%">
+
+</td>
+<td width="50%">
+
+<img src="./screenshots/exercisetracking.jpg" alt="Exercise Tracking" width="100%">
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+<img src="./screenshots/tracker.jpg" alt="Progress Tracker" width="100%">
+
+</td>
+<td width="50%">
+
+<img src="./screenshots/tracker1.jpg" alt="Progress Tracker Details" width="100%">
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+<img src="./screenshots/mealplan.jpg" alt="Meal Plan" width="100%">
+
+</td>
+<td width="50%">
+
+<img src="./screenshots/detiles.jpg" alt="Exercise Details" width="100%">
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+<img src="./screenshots/recommeder.jpg" alt="Fitness Recommendations" width="100%">
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+</table>
+
+---
+
+### AI Pose Estimation
+
+<table>
+<tr>
+<td width="50%">
+
+<img src="./screenshots/poseestimationdashboard.jpg" alt="Pose Estimation Dashboard" width="100%">
+
+</td>
+<td width="50%">
+
+<img src="./screenshots/result.jpg" alt="Pose Analysis Result" width="100%">
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+<img src="./screenshots/videoanalysis.jpg" alt="Video Analysis" width="100%">
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+</table>
