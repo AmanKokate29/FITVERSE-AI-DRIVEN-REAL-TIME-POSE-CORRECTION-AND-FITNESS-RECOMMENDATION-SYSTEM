@@ -65,6 +65,3 @@ FitVerse/
 │       └── Diet & Workout Recommendation System
 │
 └── README.md
-
-
-<img width="1549" height="744" alt="Picture1" src="https://github.com/user-attachments/assets/dc825289-d8a5-4157-9755-e3662b20dd07" />
