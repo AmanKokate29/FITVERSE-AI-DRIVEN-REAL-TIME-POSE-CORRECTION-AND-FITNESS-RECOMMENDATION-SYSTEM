@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900 font-sans antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-green-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-md sm:rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base min-h-[44px] touch-manipulation;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-md sm:rounded-lg font-semibold hover:bg-gray-900 transition-all duration-300 text-sm sm:text-base min-h-[44px] touch-manipulation;
+  }
+  
+  .section-title {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-2 sm:mb-4;
+  }
+  
+  .section-subtitle {
+    @apply text-gray-600 text-center text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 lg:mb-12 max-w-2xl mx-auto;
+  }
+
+  /* Mobile-first touch targets */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] touch-manipulation;
+  }
+
+  /* Mobile-friendly form inputs */
+  .form-input {
+    @apply w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-md sm:rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base min-h-[44px] touch-manipulation;
+  }
+
+  /* Mobile navigation improvements */
+  .mobile-menu-button {
+    @apply p-2 rounded-md text-gray-700 hover:text-green-600 hover:bg-gray-100 transition-colors min-h-[44px] min-w-[44px] touch-manipulation;
+  }
+}
