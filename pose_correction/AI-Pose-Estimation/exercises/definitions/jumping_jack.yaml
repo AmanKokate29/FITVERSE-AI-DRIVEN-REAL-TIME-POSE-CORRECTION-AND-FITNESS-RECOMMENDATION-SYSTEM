@@ -1,0 +1,55 @@
+# Jumping Jack Exercise Definition
+name: jumping_jack
+display_name: "Jumping Jack"
+type: repetition
+
+target_muscles:
+  - Full Body
+  - Shoulders
+  - Legs
+equipment: "Bodyweight"
+difficulty: beginner
+default_reps: 20
+default_sets: 3
+description: "Classic full body cardio movement"
+
+angles:
+  primary:
+    points: [left_elbow, left_shoulder, left_hip]
+    description: "Kol açısı"
+
+state_order:
+  - open
+  - opening
+  - closed
+
+states:
+  closed:
+    condition: "angle < 30"
+    description: "Kollar yanda"
+  
+  opening:
+    condition: "angle >= 30 and angle < 150"
+    description: "Açılma"
+  
+  open:
+    condition: "angle >= 150"
+    description: "Kollar yukarıda"
+
+counter:
+  trigger_state: open
+  from_state: opening
+
+min_rep_duration: 0.3
+
+feedback:
+  arms_low:
+    condition: "angle < 140"
+    message: "Reach arms fully overhead"
+    severity: info
+
+visualization:
+  lines:
+    - points: [left_shoulder, left_elbow]
+      color: [255, 255, 0]
+      thickness: 4

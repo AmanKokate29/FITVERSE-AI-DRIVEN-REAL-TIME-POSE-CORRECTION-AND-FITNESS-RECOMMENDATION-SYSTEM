@@ -1,0 +1,54 @@
+# Calf Raise Exercise Definition
+name: calf_raise
+display_name: "Calf Raise"
+type: repetition
+
+target_muscles:
+  - Calves
+  - Soleus
+equipment: "Bodyweight"
+difficulty: beginner
+default_reps: 15
+default_sets: 3
+description: "Standing calf raises for lower leg strength"
+
+angles:
+  primary:
+    points: [left_hip, left_knee, left_ankle]
+    description: "Bacak açısı"
+
+state_order:
+  - up
+  - raise
+  - down
+
+states:
+  down:
+    condition: "angle > 165"
+    description: "Topuklar yerde"
+  
+  raise:
+    condition: "angle > 155 and angle <= 165"
+    description: "Kaldırma aşaması"
+  
+  up:
+    condition: "angle <= 155"
+    description: "En üst nokta"
+
+counter:
+  trigger_state: up
+  from_state: raise
+
+min_rep_duration: 0.5
+
+feedback:
+  bent_knees:
+    condition: "angle < 150"
+    message: "Keep legs straight"
+    severity: warning
+
+visualization:
+  lines:
+    - points: [left_knee, left_ankle]
+      color: [0, 255, 255]
+      thickness: 4

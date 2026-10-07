@@ -1,0 +1,57 @@
+# Wall Sit Exercise Definition
+name: wall_sit
+display_name: "Wall Sit"
+type: duration
+
+target_muscles:
+  - Quadriceps
+  - Glutes
+equipment: "Wall"
+difficulty: beginner
+default_reps: 30
+default_sets: 3
+description: "Isometric hold against wall for quad endurance"
+
+angles:
+  primary:
+    points: [left_hip, left_knee, left_ankle]
+    description: "Diz açısı"
+
+state_order:
+  - holding
+  - lowering
+  - standing
+
+states:
+  standing:
+    condition: "angle > 150"
+    description: "Ayakta"
+  
+  lowering:
+    condition: "angle > 100 and angle <= 150"
+    description: "İniş"
+  
+  holding:
+    condition: "angle <= 100"
+    description: "Tutma pozisyonu"
+
+counter:
+  trigger_state: holding
+  from_state: lowering
+
+min_rep_duration: 1.0
+
+feedback:
+  too_high:
+    condition: "angle > 100"
+    message: "Lower down - aim for 90 degrees"
+    severity: warning
+
+visualization:
+  lines:
+    - points: [left_hip, left_knee]
+      color: [0, 128, 0]
+      thickness: 4
+    - points: [left_knee, left_ankle]
+      color: [0, 128, 0]
+      thickness: 4

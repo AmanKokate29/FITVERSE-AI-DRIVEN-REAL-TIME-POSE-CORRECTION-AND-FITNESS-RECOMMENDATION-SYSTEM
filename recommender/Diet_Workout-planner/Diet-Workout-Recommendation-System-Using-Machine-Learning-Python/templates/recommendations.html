@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitVerse | Recommendations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-gray-100">
+    <header class="hero-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white border border-gray-200 rounded-xl hover:border-green-600 transition-colors hero-card">
+                <h1 class="font-bold text-gray-900">Your <span class="text-green-600">FitVerse</span> Recommendations</h1>
+                <p class="text-gray-600 hero-subtext">
+                    Open each section to see your personalized plan details.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 main-content">
+        <section class="bg-white border border-gray-200 rounded-xl hover:border-green-600 transition-colors panel-card card-shadow">
+            <div class="result-buttons minimal-actions-grid">
+                <button class="action-tile border border-gray-200 rounded-lg text-gray-900 transition-all duration-300 min-touch" type="button" onclick="showModal('dietModal')">
+                    <span class="action-title">Diet Recommendations</span>
+                    <span class="action-subtitle text-gray-600">Meals and diet style guidance</span>
+                </button>
+                <button class="action-tile border border-gray-200 rounded-lg text-gray-900 transition-all duration-300 min-touch" type="button" onclick="showModal('workoutModal')">
+                    <span class="action-title">Workout Plan</span>
+                    <span class="action-subtitle text-gray-600">Structured exercise split</span>
+                </button>
+                <button class="action-tile border border-gray-200 rounded-lg text-gray-900 transition-all duration-300 min-touch" type="button" onclick="showModal('breakfastModal')">
+                    <span class="action-title">Breakfast Ideas</span>
+                    <span class="action-subtitle text-gray-600">Quick, practical morning options</span>
+                </button>
+                <button class="action-tile border border-gray-200 rounded-lg text-gray-900 transition-all duration-300 min-touch" type="button" onclick="showModal('lunchModal')">
+                    <span class="action-title">Lunch Ideas</span>
+                    <span class="action-subtitle text-gray-600">Balanced midday combinations</span>
+                </button>
+                <button class="action-tile border border-gray-200 rounded-lg text-gray-900 transition-all duration-300 min-touch" type="button" onclick="showModal('dinnerModal')">
+                    <span class="action-title">Dinner Ideas</span>
+                    <span class="action-subtitle text-gray-600">Lighter evening meals</span>
+                </button>
+                <button class="action-tile border border-gray-200 rounded-lg text-gray-900 transition-all duration-300 min-touch" type="button" onclick="showModal('snacksModal')">
+                    <span class="action-title">Snacks & Supplements</span>
+                    <span class="action-subtitle text-gray-600">Smart snacks and add-ons</span>
+                </button>
+                <button class="action-tile border border-gray-200 rounded-lg text-gray-900 transition-all duration-300 min-touch" type="button" onclick="showModal('tipsModal')">
+                    <span class="action-title">Important Tips</span>
+                    <span class="action-subtitle text-gray-600">Daily habits for consistency</span>
+                </button>
+            </div>
+            <div class="field-group-full" style="margin-top: 1rem;">
+                <a class="bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 shadow-lg hover:shadow-xl min-touch" href="/" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0.72rem 1rem;">Create New Plan</a>
+            </div>
+        </section>
+    </main>
+
+    <div id="dietModal" class="modal">
+        <div class="modal-content bg-white border border-gray-200 rounded-xl">
+            <span class="close text-gray-600" onclick="closeModal('dietModal')">&times;</span>
+            <h3 class="font-bold text-gray-900">Diet Recommendations</h3>
+            <ul class="result-list text-gray-700">
+                {% for diet in recommendations.diet_types %}
+                    <li>{{ diet }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="workoutModal" class="modal">
+        <div class="modal-content bg-white border border-gray-200 rounded-xl">
+            <span class="close text-gray-600" onclick="closeModal('workoutModal')">&times;</span>
+            <h3 class="font-bold text-gray-900">Workout Plan</h3>
+            <ul class="result-list text-gray-700">
+                {% for workout in recommendations.workouts %}
+                    <li>{{ workout }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="breakfastModal" class="modal">
+        <div class="modal-content bg-white border border-gray-200 rounded-xl">
+            <span class="close text-gray-600" onclick="closeModal('breakfastModal')">&times;</span>
+            <h3 class="font-bold text-gray-900">Breakfast Ideas</h3>
+            <ul class="result-list text-gray-700">
+                {% for breakfast in recommendations.breakfasts %}
+                    <li>{{ breakfast }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="lunchModal" class="modal">
+        <div class="modal-content bg-white border border-gray-200 rounded-xl">
+            <span class="close text-gray-600" onclick="closeModal('lunchModal')">&times;</span>
+            <h3 class="font-bold text-gray-900">Lunch Ideas</h3>
+            <ul class="result-list text-gray-700">
+                {% for lunch in recommendations.lunches %}
+                    <li>{{ lunch }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="dinnerModal" class="modal">
+        <div class="modal-content bg-white border border-gray-200 rounded-xl">
+            <span class="close text-gray-600" onclick="closeModal('dinnerModal')">&times;</span>
+            <h3 class="font-bold text-gray-900">Dinner Ideas</h3>
+            <ul class="result-list text-gray-700">
+                {% for dinner in recommendations.dinners %}
+                    <li>{{ dinner }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="snacksModal" class="modal">
+        <div class="modal-content bg-white border border-gray-200 rounded-xl">
+            <span class="close text-gray-600" onclick="closeModal('snacksModal')">&times;</span>
+            <h3 class="font-bold text-gray-900">Snacks & Additional Recommendations</h3>
+            <ul class="result-list text-gray-700">
+                {% for snack in recommendations.snacks %}
+                    <li>{{ snack }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="tipsModal" class="modal">
+        <div class="modal-content bg-white border border-gray-200 rounded-xl">
+            <span class="close text-gray-600" onclick="closeModal('tipsModal')">&times;</span>
+            <h3 class="font-bold text-gray-900">Important Tips</h3>
+            <ul class="result-list text-gray-700">
+                {% for tip in recommendations.tips %}
+                    <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName("modal");
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target === modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        };
+
+        function normalizeText(text) {
+            return text
+                .replace(/\*\*/g, "")
+                .replace(/^[-*\d\.)\s]+/, "")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+
+        function splitTitleAndDescription(rawText) {
+            const cleaned = normalizeText(rawText);
+            const parts = cleaned.split(":");
+            if (parts.length < 2) {
+                return { title: cleaned, description: "" };
+            }
+            const title = parts.shift().trim();
+            const description = parts.join(":").trim();
+            return {
+                title: title || "Recommendation",
+                description: description || ""
+            };
+        }
+
+        function buildInteractiveItems() {
+            const lists = Array.from(document.querySelectorAll(".modal .result-list"));
+            lists.forEach((list, listIndex) => {
+                const items = Array.from(list.querySelectorAll("li"));
+                items.forEach((item, index) => {
+                    const originalText = item.textContent || "";
+                    const { title, description } = splitTitleAndDescription(originalText);
+
+                    item.classList.add("interactive-reco-item");
+                    item.innerHTML = "";
+
+                    const card = document.createElement("div");
+                    card.className = "reco-card";
+
+                    const titleWrap = document.createElement("div");
+                    titleWrap.className = "reco-title-wrap";
+
+                    const titleEl = document.createElement("span");
+                    titleEl.className = "reco-title text-gray-900";
+                    titleEl.textContent = title;
+                    titleWrap.appendChild(titleEl);
+
+                    card.appendChild(titleWrap);
+
+                    if (description) {
+                        const detailEl = document.createElement("p");
+                        detailEl.className = "reco-description text-gray-700";
+                        detailEl.id = `reco-${listIndex}-${index}`;
+                        detailEl.textContent = description;
+                        card.appendChild(detailEl);
+                    }
+
+                    item.appendChild(card);
+                });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", buildInteractiveItems);
+    </script>
+</body>
+</html>

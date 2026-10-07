@@ -1,0 +1,80 @@
+# Deadlift Exercise Definition
+# Target muscles: Hamstrings, Glutes, Lower Back
+
+name: deadlift
+display_name: "Deadlift"
+type: repetition
+
+target_muscles:
+  - Hamstrings
+  - Glutes
+  - Lower Back
+equipment: "Bodyweight or Barbell"
+difficulty: intermediate
+default_reps: 8
+default_sets: 3
+rest_time: "60 seconds"
+benefits:
+  - "Strengthens posterior chain"
+  - "Improves hip mobility"
+  - "Builds functional strength"
+description: "Hip hinge movement for posterior chain"
+
+# Angle definitions
+angles:
+  primary:
+    points: [left_shoulder, left_hip, left_knee]
+    description: "Hip hinge angle"
+
+# State machine
+state_order:
+  - up
+  - hinge
+  - down
+
+states:
+  up:
+    condition: "angle > 165"
+    description: "Standing position"
+  
+  hinge:
+    condition: "angle > 100 and angle <= 165"
+    description: "Hinge phase"
+  
+  down:
+    condition: "angle <= 100"
+    description: "Bottom position"
+
+# Counter rule
+counter:
+  trigger_state: up
+  from_state: down
+
+# Time filter
+min_rep_duration: 1.0
+
+# Form feedback
+feedback:
+  rounded_back:
+    condition: "angle < 90"
+    message: "Back is rounding! Keep your spine neutral."
+    severity: warning
+  
+  knees_locked:
+    condition: "angle > 170"
+    message: "Don't lock your knees at the top."
+    severity: info
+  
+  hips_too_high:
+    condition: "left_hip_y < left_knee_y - 30"
+    message: "Hips too high! Lower them to hip hinge position."
+    severity: warning
+
+visualization:
+  lines:
+    - points: [left_shoulder, left_hip]
+      color: [139, 69, 19]
+      thickness: 4
+    - points: [left_hip, left_knee]
+      color: [139, 69, 19]
+      thickness: 4

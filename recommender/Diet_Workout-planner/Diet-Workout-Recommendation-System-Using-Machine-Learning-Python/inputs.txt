@@ -1,0 +1,94 @@
+Example Input Values: (1)
+
+Age: 25
+Gender: Male
+Height: 170 cm
+Weight: 75 kg
+Dietary Preferences: "Vegetarian, high-protein"
+Fitness Goals: "Weight loss, muscle gain"
+Activity Level: "Moderate"
+Lifestyle Factors: "Works 8 hours at desk, goes for evening walk"
+Dietary Restrictions: "Gluten-free"
+Health Conditions: "Type 2 diabetes"
+Budget: "Medium"
+User Query: "Suggest a simple Indian diet and workout plan for fat loss and muscle gain."
+
+
+Example Input Values: (2)
+
+Age: 30
+Gender: Female
+Height: 160 cm
+Weight: 65 kg
+Dietary Preferences: "Non-vegetarian"
+Fitness Goals: "Improve stamina and heart health"
+Activity Level: "Active"
+Lifestyle Factors: "Daily walking and yoga"
+Dietary Restrictions: "Dairy-free"
+Health Conditions: "High cholesterol"
+Budget: "Medium"
+User Query: "I want an Indian meal plan to improve endurance and maintain heart health."
+
+
+Example Input Values: (3)
+
+Age: 22
+Gender: Female
+Height: 155 cm
+Weight: 50 kg
+Dietary Preferences: "Vegan"
+Fitness Goals: "Weight maintenance, toning"
+Activity Level: "Sedentary"
+Lifestyle Factors: "Student, sits most of the day"
+Dietary Restrictions: "Nut-free"
+Health Conditions: "None"
+Budget: "Low"
+User Query: "Create a vegan Indian diet plan and simple home workouts for toning."
+
+
+Example Input Values: (4)
+
+Age: 27
+Gender: Male
+Height: 175 cm
+Weight: 70 kg
+Dietary Preferences: "Eggetarian, high-protein"
+Fitness Goals: "Muscle gain"
+Activity Level: "Active"
+Lifestyle Factors: "Gym 5 days a week"
+Dietary Restrictions: "Lactose-free"
+Health Conditions: "None"
+Budget: "High"
+User Query: "Give me a high-protein Indian diet and workout plan for muscle building."
+
+
+Example Input Values: (5)
+
+Age: 40
+Gender: Female
+Height: 158 cm
+Weight: 72 kg
+Dietary Preferences: "Vegetarian"
+Fitness Goals: "Weight loss, general fitness"
+Activity Level: "Sedentary"
+Lifestyle Factors: "Housewife, limited physical activity"
+Dietary Restrictions: "None"
+Health Conditions: "Thyroid"
+Budget: "Low"
+User Query: "Suggest an easy and affordable Indian diet and light exercise plan for weight loss."
+
+
+Example Input Values: (6)
+
+Age: 35
+Gender: Male
+Height: 172 cm
+Weight: 85 kg
+Dietary Preferences: "Non-vegetarian"
+Fitness Goals: "Fat loss"
+Activity Level: "Moderate"
+Lifestyle Factors: "Office job, little movement"
+Dietary Restrictions: "Low-salt"
+Health Conditions: "High blood pressure"
+Budget: "Medium"
+User Query: "Provide a heart-friendly Indian diet and workout plan for fat loss."

@@ -1,0 +1,78 @@
+# Bicep Curl Exercise Definition
+name: bicep_curl
+display_name: "Bicep Curl"
+type: repetition
+bilateral: true
+
+# Meta bilgiler
+target_muscles:
+  - Biceps
+  - Brachialis
+equipment: "Dumbbells"
+difficulty: beginner
+default_reps: 10
+default_sets: 3
+rest_time: "60 seconds"
+benefits:
+  - "Builds bicep strength"
+  - "Improves arm definition"
+description: "Classic bicep curl with controlled tempo"
+
+# Açı tanımları
+angles:
+  left:
+    points: [left_shoulder, left_elbow, left_wrist]
+    description: "Sol kol dirsek açısı"
+  
+  right:
+    points: [right_shoulder, right_elbow, right_wrist]
+    description: "Sağ kol dirsek açısı"
+
+# Durum makinesi
+state_order:
+  - flex
+  - curl
+  - down
+
+states:
+  down:
+    condition: "angle > 150"
+    description: "Kol düz - başlangıç pozisyonu"
+  
+  curl:
+    condition: "angle > 50 and angle <= 150"
+    description: "Kaldırma aşaması"
+  
+  flex:
+    condition: "angle <= 50"
+    description: "En üst nokta - sayaç artırılır"
+
+# Sayaç kuralı
+counter:
+  trigger_state: flex
+  from_state: curl
+
+# Zaman filtresi
+min_rep_duration: 0.8
+
+# Form geri bildirimleri
+feedback:
+  partial_rep:
+    condition: "angle > 60"
+    message: "Squeeze more at the top!"
+    severity: info
+
+# Kalibrasyon
+calibration:
+  enabled: true
+  reps: 2
+
+# Görselleştirme
+visualization:
+  lines:
+    - points: [left_shoulder, left_elbow]
+      color: [0, 0, 255]
+      thickness: 4
+    - points: [left_elbow, left_wrist]
+      color: [0, 0, 255]
+      thickness: 4

@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitVerse – Live Camera</title>
+  <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='images/logo.jpeg') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --green-primary: #22c55e;
+      --green-dark: #16a34a;
+      --green-light: #dcfce7;
+      --green-muted: #bbf7d0;
+      --green: #22c55e;
+      --green-bg: #dcfce7;
+      --green-border: #bbf7d0;
+      --sidebar-bg: #0f1f13;
+      --sidebar-text: #d1d5db;
+      --sidebar-muted: #6b7280;
+      --page-bg: #f4f6f4;
+      --card-bg: #ffffff;
+      --text-dark: #111827;
+      --text-gray: #6b7280;
+      --text-light: #9ca3af;
+      --border: #e5e7eb;
+      --video-bg: #0c1a0e;
+    }
+
+    html, body { height: 100%; font-family: var(--font); background: var(--page-bg); color: var(--text-dark); }
+
+    .app { display: flex; min-height: 100vh; }
+/* ── SIDEBAR ── */
+    .sidebar {
+      width: 260px;
+      min-height: 100vh;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 0 24px;
+      position: fixed;
+      left: 0; top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      padding: 0 24px 32px;
+    }
+    .logo-title {
+      font-family: var(--font);
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .logo-title span { color: var(--green-primary); }
+    .logo-sub {
+      font-size: 12px;
+      color: var(--sidebar-muted);
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    nav { flex: 1; padding: 0 12px; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--sidebar-text);
+      font-size: 14.5px;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      margin-bottom: 2px;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
+    .nav-item.active {
+      background: rgba(34,197,94,0.18);
+      color: var(--green-primary);
+    }
+    .nav-item svg { flex-shrink: 0; opacity: 0.85; }
+    .nav-item.active svg { opacity: 1; }
+
+    .pro-tip {
+      margin: 24px 12px 0;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .pro-tip-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green-primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .pro-tip p {
+      font-size: 12.5px;
+      color: var(--sidebar-muted);
+      line-height: 1.5;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: 260px;
+      flex: 1;
+      padding: 52px 56px;
+      max-width: calc(100vw - 260px);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      border: 1px solid var(--green-muted);
+    }
+    .badge svg { color: var(--green-primary); }
+
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: 260px;
+      flex: 1;
+      padding: 32px 40px 48px;
+      min-height: 100vh;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.025em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-gray);
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    /* ── EXERCISE BAR ── */
+    .exercise-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      flex-wrap: wrap;
+    }
+    .ex-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-gray);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      margin-right: 2px;
+    }
+    .ex-label svg { width: 14px; height: 14px; stroke: var(--green); fill: none; stroke-width: 2.2; }
+    .chips { display: flex; gap: 7px; flex-wrap: wrap; flex: 1; }
+    .chip {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border: 1.5px solid var(--border);
+      background: var(--page-bg);
+      color: var(--text-gray);
+      cursor: pointer;
+      transition: all 0.13s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .chip:hover { border-color: var(--green); color: var(--green-dark); background: var(--green-bg); }
+    .chip.active { background: var(--green); border-color: var(--green); color: #fff; }
+    .more-wrap { position: relative; margin-left: auto; }
+    .more-wrap .chip { padding-right: 10px; }
+    .more-wrap select {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── TARGET SETTINGS BAR ── */
+    .target-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .target-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .target-label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-gray);
+      white-space: nowrap;
+    }
+    .target-input {
+      width: 70px;
+      padding: 6px 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font);
+      color: var(--text-dark);
+      background: var(--page-bg);
+      transition: border-color 0.13s, box-shadow 0.13s;
+    }
+    .target-input:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+    }
+    .target-input::-webkit-outer-spin-button,
+    .target-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .target-input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    /* ── BODY GRID ── */
+    .content-row {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 0 40px;
+      align-items: start;
+    }
+    .left-col { display: flex; flex-direction: column; }
+
+    /* ── VIDEO BOX ── */
+    .video-box {
+      background: var(--video-bg);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .video-box video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 10;
+    }
+    .video-box .video-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 5;
+      display: none;
+    }
+    .vid-cam-icon { color: rgba(255,255,255,0.22); display: block; }
+    .vid-main-txt {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.52);
+    }
+    .vid-sub-txt {
+      font-size: 12px;
+      color: rgba(255,255,255,0.27);
+      margin-top: -4px;
+    }
+
+    /* corner controls */
+    .vid-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+    .vid-btn {
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: rgba(255,255,255,0.58);
+      transition: background 0.13s, color 0.13s;
+    }
+    .vid-btn:hover { background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.9); }
+    .vid-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.9; }
+
+    /* live badge */
+    .live-badge {
+      position: absolute;
+      top: 13px; left: 13px;
+      background: rgba(34,197,94,0.88);
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 999px;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.03em;
+      backdrop-filter: blur(4px);
+    }
+    .live-badge.show { display: flex; }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: blink 1.2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+    /* ── START BUTTON ── */
+    .btn-row { display: flex; align-items: center; gap: 12px; }
+    .btn-start {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      transition: background 0.13s, transform 0.1s, box-shadow 0.13s;
+    }
+    .btn-start:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(34,197,94,0.28); }
+    .btn-start.stop { background: #ef4444; }
+    .btn-start.stop:hover { background: #dc2626; box-shadow: 0 4px 14px rgba(239,68,68,0.28); }
+    .btn-start svg { width: 13px; height: 13px; fill: currentColor; }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #d1d5db; }
+    .status-dot.live { background: var(--green); animation: blink 1.2s infinite; }
+
+    /* ── JOINT ANGLES ── */
+    .joint-panel { 
+      padding-top: 2px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+    .joint-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .joint-title svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--green);
+    }
+    .joint-list { display: flex; flex-direction: column; }
+    .joint-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #efefef;
+    }
+    .joint-row:last-child { border-bottom: none; }
+    .joint-name { font-size: 13px; color: var(--text-gray); font-weight: 500; }
+    .joint-right { display: flex; align-items: center; gap: 9px; }
+    .joint-val { font-size: 14px; font-weight: 700; color: var(--text-dark); min-width: 40px; text-align: right; }
+    .jdot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .jdot.g { background: #22c55e; }
+    .jdot.o { background: #f97316; }
+    .jdot.r { background: #ef4444; }
+
+    /* ── LIVE FEEDBACK ── */
+    .feedback-list { display: flex; flex-direction: column; gap: 8px; max-height: 350px; overflow-y: auto; }
+    .feedback-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.45;
+      border-left: 3px solid var(--green);
+      background: #f9fafb;
+    }
+    .feedback-item.empty {
+      color: var(--text-light);
+      font-style: italic;
+      border-left-color: var(--border);
+      background: #fafafa;
+    }
+    .feedback-item.info { border-left-color: #3b82f6; background: #eff6ff; }
+    .feedback-item.success { border-left-color: var(--green); background: var(--green-bg); }
+    .feedback-item.warning { border-left-color: #f97316; background: #fff7ed; }
+    .feedback-item.error { border-left-color: #ef4444; background: #fef2f2; }
+
+    /* ── STATS GRID ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #fff;
+    }
+    .stat-label { font-size: 11px; font-weight: 600; opacity: 0.85; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-value { font-size: 28px; font-weight: 800; margin-top: 4px; }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .content-row {
+        grid-template-columns: 1fr 280px;
+        gap: 0 24px;
+      }
+    }
+    @media (max-width: 1024px) {
+      .sidebar { width: 220px; }
+      .main { margin-left: 220px; padding: 24px; }
+      .content-row { grid-template-columns: 1fr; }
+      .joint-panel { order: -1; margin-bottom: 20px; }
+      .stats-row { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding: 20px 16px; }
+      .page-title { font-size: 24px; }
+      .exercise-bar { flex-direction: column; align-items: stretch; }
+      .chips { justify-content: center; }
+      .more-wrap { margin-left: 0; width: 100%; }
+      .video-box { aspect-ratio: 4 / 3; }
+      .stats-row { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-title">Fit<span>Verse</span></div>
+      <div class="logo-sub">AI Powered Fitness Platform</div>
+    </div>
+
+    <nav>
+      <a class="nav-item" href="/">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9.75L12 3l9 6.75V21H3V9.75z"/><path d="M9 21v-6h6v6"/></svg>
+        Home
+      </a>
+      <a class="nav-item active" href="/live_camera">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        Live Camera
+      </a>
+      <a class="nav-item" href="/video_analysis">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="15" height="12" rx="2"/><path d="m17 10 5-3v10l-5-3"/></svg>
+        Video Analysis
+      </a>
+      <a class="nav-item" href="/dashboard">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" href="/profile">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Profile
+      </a>
+    </nav>
+
+    <div class="pro-tip">
+      <div class="pro-tip-label">Pro Tip</div>
+      <p>Select an exercise and click Start to begin real-time pose tracking.</p>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <h1 class="page-title">Live Camera</h1>
+    <p class="page-subtitle">Real-time pose estimation from your webcam feed.</p>
+
+    <!-- Exercise Bar -->
+    <div class="exercise-bar">
+      <div class="ex-label">
+        <svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16M6 12h12M3 6h3M18 6h3M3 18h3M18 18h3"/></svg>
+        Exercise:
+      </div>
+      <div class="chips" id="exercise-chips">
+        <!-- Populated by JavaScript -->
+      </div>
+      <div class="more-wrap">
+        <div class="chip">More ▾</div>
+        <select id="exercise-dropdown" onchange="pickDrop(this)">
+          <option value="">Choose…</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Target Settings -->
+    <div class="target-bar">
+      <div class="target-item">
+        <label class="target-label">Target Reps</label>
+        <input type="number" id="target-reps" class="target-input" value="10" min="1" max="100">
+      </div>
+      <div class="target-item">
+        <label class="target-label">Target Sets</label>
+        <input type="number" id="target-sets" class="target-input" value="3" min="1" max="50">
+      </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="content-row">
+
+      <!-- Left -->
+      <div class="left-col">
+        <div class="video-box">
+          <div class="live-badge" id="badge">
+            <div class="live-dot"></div>
+            <span id="badgeTxt">Squat</span>
+          </div>
+          
+          <video id="video" autoplay playsinline></video>
+          <img id="video-img" class="video-img" src="/video_feed" alt="Video feed" />
+          
+          <div id="placeholder">
+            <svg class="vid-cam-icon" width="58" height="58" fill="none" stroke="currentColor" stroke-width="1.15" viewBox="0 0 24 24">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <div class="vid-main-txt">Camera feed will appear here</div>
+            <div class="vid-sub-txt">Click Start to begin pose detection</div>
+          </div>
+
+          <div class="vid-controls">
+            <button class="vid-btn" title="Fullscreen" onclick="toggleFullscreen()">
+              <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-start" id="startBtn" onclick="toggleCamera()">
+            <svg id="ico" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span id="lbl">Start Camera</span>
+          </button>
+          <div class="status-pill">
+            <div class="status-dot" id="sdot"></div>
+            <span id="slbl">Idle</span>
+          </div>
+        </div>
+        
+        <!-- Stats Row -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Reps</div>
+            <div class="stat-value" id="stat-reps">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Sets</div>
+            <div class="stat-value" id="stat-sets">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Score</div>
+            <div class="stat-value" id="stat-score">--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live Feedback -->
+      <div class="joint-panel">
+        <div class="joint-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Live Feedback
+        </div>
+        <div class="feedback-list" id="feedback-list">
+          <div class="feedback-item empty">Select an exercise and start to see feedback</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  // State
+  let cameraStarted = false;
+  let exerciseRunning = false;
+  let selectedExercise = null;
+  let exercisesData = {};
+  let statusInterval = null;
+  let feedbackMessages = [];
+  
+
+  let jointData = [];
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadExercises();
+    setupNavigation();
+  });
+
+  // Stop camera when leaving page
+  window.addEventListener('beforeunload', () => {
+    if (cameraStarted) {
+      stopCamera();
+    }
+  });
+
+  async function loadExercises() {
+    try {
+      const response = await fetch('/exercises');
+      const data = await response.json();
+      exercisesData = data;
+      
+      // Populate chips
+      const chipContainer = document.getElementById('exercise-chips');
+      const dropdown = document.getElementById('exercise-dropdown');
+      
+      // Add common exercises as chips
+      const commonExercises = [
+        'squat', 'push_up', 'deadlift', 'plank', 'lunge', 'bicep_curl',
+        'calf_raise', 'glute_bridge', 'hammer_curl', 'high_knees', 'jumping_jack',
+        'lateral_raise', 'leg_raise', 'mountain_climber', 'shoulder_press',
+        'side_lunge', 'tricep_dip', 'wall_sit'
+      ];
+      commonExercises.forEach((ex, index) => {
+        const info = data.info[ex] || { name: ex.replace(/_/g, ' ') };
+        const div = document.createElement('div');
+        div.className = `chip ${index === 0 ? 'active' : ''}`;
+        div.textContent = info.name || ex.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        div.onclick = () => pick(div, ex);
+        chipContainer.appendChild(div);
+        
+        // Add to dropdown
+        const opt = document.createElement('option');
+        opt.value = ex;
+        opt.textContent = info.name || ex.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        dropdown.appendChild(opt);
+      });
+      
+      selectedExercise = commonExercises[0];
+      document.getElementById('badgeTxt').textContent = exercisesData.info[selectedExercise]?.name || 'Squat';
+    } catch (error) {
+      console.error('Error loading exercises:', error);
+    }
+  }
+
+  function setupNavigation() {
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (cameraStarted) {
+          stopCamera();
+        }
+      });
+    });
+  }
+
+  function pick(el, name) {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    selectedExercise = name;
+    const info = exercisesData.info[name] || { name: name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) };
+    document.getElementById('badgeTxt').textContent = info.name || name;
+    
+    if (exerciseRunning) {
+      startExercise();
+    }
+  }
+
+  function pickDrop(sel) {
+    if (!sel.value) return;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    selectedExercise = sel.value;
+    const info = exercisesData.info[selectedExercise] || { name: selectedExercise.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) };
+    document.getElementById('badgeTxt').textContent = info.name || selectedExercise;
+    sel.value = '';
+    
+    if (exerciseRunning) {
+      startExercise();
+    }
+  }
+
+  async function toggleCamera() {
+    if (cameraStarted) {
+      stopCamera();
+    } else {
+      startCamera();
+    }
+  }
+
+  function startCamera() {
+    const video = document.getElementById('video');
+    const videoImg = document.getElementById('video-img');
+    const placeholder = document.getElementById('placeholder');
+    const btn = document.getElementById('startBtn');
+    const ico = document.getElementById('ico');
+    const lbl = document.getElementById('lbl');
+    const sd = document.getElementById('sdot');
+    const sl = document.getElementById('slbl');
+    const bdg = document.getElementById('badge');
+    
+    console.log('Starting camera...');
+    
+    // Reset video element first
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+    
+    // Hide placeholder, show both video and img (img will show stream)
+    placeholder.style.display = 'none';
+    video.style.display = 'block';
+    videoImg.style.display = 'block';
+    
+    // Try video element first
+    video.src = '/video_feed';
+    video.load();
+    
+    // Wait for video to start playing
+    const playPromise = video.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        // Video started playing successfully
+        console.log('Video playback started');
+        placeholder.style.display = 'none';
+        videoImg.style.display = 'none'; // Hide img, show video
+        cameraStarted = true;
+        btn.classList.add('stop');
+        ico.innerHTML = '<rect x="5" y="5" width="14" height="14" rx="2"/>';
+        lbl.textContent = 'Stop Camera';
+        sd.classList.add('live');
+        sl.textContent = 'Live';
+        bdg.classList.add('show');
+        
+        // Auto-start exercise
+        exerciseRunning = true;
+        startExercise();
+      }).catch(error => {
+        console.log('Video play failed, using img fallback:', error.message);
+        // Keep img visible as fallback
+        placeholder.style.display = 'none';
+        video.style.display = 'none';
+        videoImg.style.display = 'block';
+        
+        // Still mark as started since img is showing
+        cameraStarted = true;
+        btn.classList.add('stop');
+        ico.innerHTML = '<rect x="5" y="5" width="14" height="14" rx="2"/>';
+        lbl.textContent = 'Stop Camera';
+        sd.classList.add('live');
+        sl.textContent = 'Live';
+        bdg.classList.add('show');
+        
+        // Auto-start exercise
+        exerciseRunning = true;
+        startExercise();
+      });
+    }
+    
+    // Handle playing event - when video actually starts playing
+    video.onplaying = function() {
+      console.log('Video is now playing');
+      placeholder.style.display = 'none';
+      videoImg.style.display = 'none';
+      video.style.display = 'block';
+      cameraStarted = true;
+      btn.classList.add('stop');
+      ico.innerHTML = '<rect x="5" y="5" width="14" height="14" rx="2"/>';
+      lbl.textContent = 'Stop Camera';
+      sd.classList.add('live');
+      sl.textContent = 'Live';
+      bdg.classList.add('show');
+      
+      // Auto-start exercise
+      exerciseRunning = true;
+      startExercise();
+    };
+    
+    // Handle errors - show img as fallback
+    video.onerror = function(e) {
+      console.log('Video error, img fallback active');
+      placeholder.style.display = 'none';
+      video.style.display = 'none';
+      videoImg.style.display = 'block';
+    };
+    
+    // Handle waiting - video is buffering
+    video.onwaiting = function() {
+      console.log('Video waiting for data...');
+      placeholder.innerHTML = '<div style="color: rgba(255,255,255,0.5);">Connecting to camera...</div>';
+      placeholder.style.display = 'flex';
+    };
+  }
+
+  function stopCamera() {
+    const video = document.getElementById('video');
+    const videoImg = document.getElementById('video-img');
+    const placeholder = document.getElementById('placeholder');
+    const btn = document.getElementById('startBtn');
+    const ico = document.getElementById('ico');
+    const lbl = document.getElementById('lbl');
+    const sd = document.getElementById('sdot');
+    const sl = document.getElementById('slbl');
+    const bdg = document.getElementById('badge');
+    
+    // Stop video playback
+    video.pause();
+    
+    // Remove all event listeners
+    video.onloadedmetadata = null;
+    video.onplaying = null;
+    video.onerror = null;
+    video.onwaiting = null;
+    video.oncanplay = null;
+    
+    // Clear video source
+    video.removeAttribute('src');
+    video.load();
+    
+    // Hide both video and img
+    video.style.display = 'none';
+    videoImg.style.display = 'none';
+    placeholder.style.display = 'flex';
+    placeholder.innerHTML = `
+      <svg class="vid-cam-icon" width="58" height="58" fill="none" stroke="currentColor" stroke-width="1.15" viewBox="0 0 24 24">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+        <circle cx="12" cy="13" r="4"/>
+      </svg>
+      <div class="vid-main-txt">Camera feed will appear here</div>
+      <div class="vid-sub-txt">Click Start to begin pose detection</div>
+    `;
+    
+    cameraStarted = false;
+    exerciseRunning = false;
+    
+    btn.classList.remove('stop');
+    ico.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+    lbl.textContent = 'Start Camera';
+    sd.classList.remove('live');
+    sl.textContent = 'Idle';
+    bdg.classList.remove('show');
+    
+    // Stop exercise on server
+    fetch('/stop_exercise', { method: 'POST' }).catch(() => {});
+    
+    // Clear status interval
+    if (statusInterval) {
+      clearInterval(statusInterval);
+      statusInterval = null;
+    }
+    
+    // Reset stats
+    feedbackMessages = [];
+    renderFeedback();
+    document.getElementById('stat-reps').textContent = '0';
+    document.getElementById('stat-sets').textContent = '0';
+    document.getElementById('stat-score').textContent = '--';
+  }
+
+  async function startExercise() {
+    if (!selectedExercise) return;
+    
+    const sd = document.getElementById('sdot');
+    const sl = document.getElementById('slbl');
+    const bdg = document.getElementById('badge');
+    
+    sd.classList.add('live');
+    sl.textContent = 'Live';
+    bdg.classList.add('show');
+    
+    // Get target values from inputs
+    const targetReps = parseInt(document.getElementById('target-reps').value) || 10;
+    const targetSets = parseInt(document.getElementById('target-sets').value) || 3;
+    
+    try {
+      await fetch('/start_exercise', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          exercise_type: selectedExercise,
+          reps: targetReps,
+          sets: targetSets
+        })
+      });
+      
+      // Start polling for status
+      statusInterval = setInterval(fetchStatus, 500);
+    } catch (error) {
+      console.error('Error starting exercise:', error);
+    }
+  }
+
+  async function fetchStatus() {
+    if (!exerciseRunning) return;
+    
+    try {
+      const response = await fetch('/get_status');
+      const data = await response.json();
+      
+      if (data.exercise_running) {
+        updateStats(data);
+      }
+    } catch (error) {
+      console.error('Error fetching status:', error);
+    }
+  }
+
+  function updateStats(data) {
+    // Update reps - support both 'reps' and 'current_reps'
+    const reps = data.reps !== undefined ? data.reps : (data.current_reps || 0);
+    if (reps) {
+      document.getElementById('stat-reps').textContent = reps;
+    }
+    
+    // Update sets - support both 'sets' and 'current_set'
+    const sets = data.sets !== undefined ? data.sets : (data.current_set || 0);
+    if (sets) {
+      document.getElementById('stat-sets').textContent = sets;
+    }
+    
+    // Update form score
+    if (data.form_score !== undefined) {
+      document.getElementById('stat-score').textContent = Math.round(data.form_score);
+    }
+    
+    // Update feedback messages - support both 'feedback' and 'feedback_messages'
+    const feedback = data.feedback || data.feedback_messages || [];
+    if (feedback && Array.isArray(feedback) && feedback.length > 0) {
+      feedbackMessages = feedback;
+      renderFeedback();
+    }
+  }
+
+  function renderFeedback() {
+    const container = document.getElementById('feedback-list');
+    if (!feedbackMessages || feedbackMessages.length === 0) {
+      container.innerHTML = '<div class="feedback-item empty">No feedback yet. Keep exercising!</div>';
+      return;
+    }
+    
+    container.innerHTML = feedbackMessages.map(msg => {
+      let type = 'info';
+      const text = msg.toLowerCase();
+      if (text.includes('good') || text.includes('great') || text.includes('perfect') || text.includes('excellent')) {
+        type = 'success';
+      } else if (text.includes('warning') || text.includes('check') || text.includes('adjust')) {
+        type = 'warning';
+      } else if (text.includes('error') || text.includes('wrong') || text.includes('bad')) {
+        type = 'error';
+      }
+      return `<div class="feedback-item ${type}">${msg}</div>`;
+    }).join('');
+  }
+
+  function toggleFullscreen() {
+    const videoBox = document.querySelector('.video-box');
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      videoBox.requestFullscreen();
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+# Lateral Raise Exercise Definition
+
+name: lateral_raise
+display_name: "Lateral Raise"
+type: repetition
+
+target_muscles:
+  - Shoulders (Lateral Deltoid)
+  - Upper Trapezius
+equipment: "Dumbbells"
+difficulty: beginner
+default_reps: 12
+default_sets: 3
+rest_time: "45 seconds"
+benefits:
+  - "Builds shoulder width"
+  - "Improves shoulder stability"
+  - "Isolates lateral deltoid"
+description: "Side raise for shoulder development"
+
+angles:
+  primary:
+    points: [left_hip, left_shoulder, left_elbow]
+    description: "Sol kol-gövde açısı"
+  
+  right_arm:
+    points: [right_hip, right_shoulder, right_elbow]
+    description: "Sağ kol-gövde açısı"
+
+state_order:
+  - top
+  - raise
+  - start
+
+states:
+  start:
+    condition: "angle < 30"
+    description: "Başlangıç - kollar yanda"
+  
+  raise:
+    condition: "angle >= 30 and angle < 80"
+    description: "Kaldırma aşaması"
+  
+  top:
+    condition: "angle >= 80"
+    description: "Üst pozisyon - omuz hizası"
+
+counter:
+  trigger_state: top
+  from_state: raise
+
+min_rep_duration: 0.6
+
+feedback:
+  swinging:
+    condition: "abs(left_hip_y - right_hip_y) > 30"
+    message: "Don't swing! Move with control."
+    severity: warning
+  
+  too_high:
+    condition: "angle > 100"
+    message: "Don't raise arms above shoulder height!"
+    severity: warning
+  
+  bent_elbows:
+    condition: "abs(left_shoulder_x - left_wrist_x) < 50"
+    message: "Keep elbows slightly bent but straighten more!"
+    severity: info
+
+calibration:
+  enabled: true
+  reps: 3
+
+smoothing:
+  enabled: true
+  window: 3
+
+visualization:
+  lines:
+    - points: [left_shoulder, left_elbow]
+      color: [147, 112, 219]
+      thickness: 3
+    - points: [left_elbow, left_wrist]
+      color: [147, 112, 219]
+      thickness: 3
+    - points: [right_shoulder, right_elbow]
+      color: [147, 112, 219]
+      thickness: 3
+    - points: [right_elbow, right_wrist]
+      color: [147, 112, 219]
+      thickness: 3

@@ -1,0 +1,10 @@
+/* Home page additional styles */
+/* Most styles are inline in the HTML for this page */
+
+.stat-card {
+    cursor: default;
+}
+
+.stat-card:last-child .stat-delta {
+    color: var(--green-primary);
+}

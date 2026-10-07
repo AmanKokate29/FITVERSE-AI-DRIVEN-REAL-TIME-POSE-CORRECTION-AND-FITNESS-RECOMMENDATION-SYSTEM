@@ -1,0 +1,58 @@
+# Tricep Dip Exercise Definition
+name: tricep_dip
+display_name: "Tricep Dip"
+type: repetition
+
+target_muscles:
+  - Triceps
+  - Shoulders
+  - Chest
+equipment: "Chair or Bench"
+difficulty: intermediate
+default_reps: 10
+default_sets: 3
+description: "Chair or bench dips for tricep strength"
+
+angles:
+  primary:
+    points: [left_shoulder, left_elbow, left_wrist]
+    description: "Dirsek açısı"
+
+state_order:
+  - up
+  - lower
+  - down
+
+states:
+  up:
+    condition: "angle > 160"
+    description: "Kollar düz"
+  
+  lower:
+    condition: "angle > 90 and angle <= 160"
+    description: "İniş"
+  
+  down:
+    condition: "angle <= 90"
+    description: "Alt pozisyon"
+
+counter:
+  trigger_state: up
+  from_state: down
+
+min_rep_duration: 0.8
+
+feedback:
+  shallow:
+    condition: "angle > 100"
+    message: "Go deeper - 90 degree bend"
+    severity: info
+
+visualization:
+  lines:
+    - points: [left_shoulder, left_elbow]
+      color: [255, 165, 0]
+      thickness: 4
+    - points: [left_elbow, left_wrist]
+      color: [255, 165, 0]
+      thickness: 4

@@ -1,0 +1,123 @@
+# Lunge Exercise Definition
+# Hedef kaslar: Quadriceps, Gluteus, Hamstrings
+
+name: lunge
+display_name: "Lunge"
+type: repetition
+
+# Meta bilgiler
+target_muscles:
+  - Quadriceps
+  - Gluteus
+  - Hamstrings
+  - Calves
+equipment: "Bodyweight"
+difficulty: beginner
+default_reps: 10
+default_sets: 3
+rest_time: "60 seconds"
+benefits:
+  - "Improves balance and coordination"
+  - "Strengthens legs unilaterally"
+  - "Enhances hip flexibility"
+description: "Forward lunge for leg strength and balance"
+
+# Açı tanımları
+angles:
+  primary:
+    points: [left_hip, left_knee, left_ankle]
+    description: "Ön bacak diz açısı"
+  
+  back_leg:
+    points: [right_hip, right_knee, right_ankle]
+    description: "Arka bacak diz açısı"
+  
+  torso:
+    points: [left_shoulder, left_hip, left_knee]
+    description: "Gövde açısı"
+
+# Durum makinesi
+state_order:
+  - start
+  - descent
+  - bottom
+
+states:
+  start:
+    condition: "angle > 160"
+    description: "Başlangıç - dik duruş"
+  
+  descent:
+    condition: "angle > 100 and angle <= 160"
+    description: "İniş aşaması"
+  
+  bottom:
+    condition: "angle <= 100"
+    description: "Alt pozisyon - 90 derece"
+
+# Sayaç kuralı
+counter:
+  trigger_state: bottom
+  from_state: descent
+
+min_rep_duration: 1.0
+
+# Form geri bildirimleri
+feedback:
+  knee_over_toe:
+    condition: "left_knee_x > left_ankle_x + 50"
+    message: "Your knee is passing your toes!"
+    severity: warning
+  
+  torso_leaning:
+    condition: "torso_angle < 70"
+    message: "Keep your torso upright!"
+    severity: warning
+  
+  back_knee_touch:
+    condition: "right_knee_y > right_ankle_y - 20"
+    message: "Back knee should not touch the ground!"
+    severity: info
+
+calibration:
+  enabled: true
+  reps: 3
+
+smoothing:
+  enabled: true
+  window: 3
+
+visualization:
+  lines:
+    - points: [left_hip, left_knee]
+      color: [178, 102, 255]
+      thickness: 2
+    - points: [left_knee, left_ankle]
+      color: [178, 102, 255]
+      thickness: 2
+    - points: [right_hip, right_knee]
+      color: [51, 153, 255]
+      thickness: 2
+    - points: [right_knee, right_ankle]
+      color: [51, 153, 255]
+      thickness: 2
+  
+  circles:
+    - point: left_hip
+      color: [178, 102, 255]
+      radius: 8
+    - point: left_knee
+      color: [178, 102, 255]
+      radius: 8
+    - point: left_ankle
+      color: [178, 102, 255]
+      radius: 8
+    - point: right_hip
+      color: [51, 153, 255]
+      radius: 8
+    - point: right_knee
+      color: [51, 153, 255]
+      radius: 8
+    - point: right_ankle
+      color: [51, 153, 255]
+      radius: 8

@@ -1,0 +1,55 @@
+# Mountain Climber Exercise Definition
+name: mountain_climber
+display_name: "Mountain Climber"
+type: repetition
+
+target_muscles:
+  - Core
+  - Hip Flexors
+  - Shoulders
+equipment: "Bodyweight"
+difficulty: intermediate
+default_reps: 20
+default_sets: 3
+description: "Dynamic cardio with alternating knee drives"
+
+angles:
+  primary:
+    points: [left_shoulder, left_hip, left_knee]
+    description: "Kalça açısı"
+
+state_order:
+  - tucked
+  - driving
+  - extended
+
+states:
+  extended:
+    condition: "angle > 160"
+    description: "Bacak düz"
+  
+  driving:
+    condition: "angle > 90 and angle <= 160"
+    description: "Diz ileri"
+  
+  tucked:
+    condition: "angle <= 90"
+    description: "Diz göğüse"
+
+counter:
+  trigger_state: tucked
+  from_state: driving
+
+min_rep_duration: 0.2
+
+feedback:
+  hips_high:
+    condition: "angle < 70"
+    message: "Keep hips level"
+    severity: info
+
+visualization:
+  lines:
+    - points: [left_hip, left_knee]
+      color: [255, 0, 0]
+      thickness: 4

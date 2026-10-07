@@ -1,0 +1,37 @@
+<!-- FitVerse — App Icon / Favicon (64×64) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="FitVerse icon">
+  <title>FitVerse</title>
+  <defs>
+    <linearGradient id="icon-ul" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#22c55e" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark rounded-square background -->
+  <rect width="64" height="64" rx="14" fill="#1a1a1a"/>
+
+  <!-- F — white bold italic -->
+  <text
+    x="3" y="50"
+    font-family="'Inter','Helvetica Neue','Arial Black',Arial,sans-serif"
+    font-weight="900"
+    font-style="italic"
+    font-size="52"
+    fill="#FFFFFF">F</text>
+
+  <!-- Diagonal accent bar between F and V -->
+  <polygon points="33,7 40,7 36,57 29,57" fill="#22c55e"/>
+
+  <!-- V — solid green -->
+  <text
+    x="34" y="50"
+    font-family="'Inter','Helvetica Neue','Arial Black',Arial,sans-serif"
+    font-weight="900"
+    font-style="italic"
+    font-size="52"
+    fill="#22c55e">V</text>
+
+  <!-- Short underline under F -->
+  <rect x="3" y="56" width="28" height="2.5" rx="1.25" fill="url(#icon-ul)"/>
+</svg>

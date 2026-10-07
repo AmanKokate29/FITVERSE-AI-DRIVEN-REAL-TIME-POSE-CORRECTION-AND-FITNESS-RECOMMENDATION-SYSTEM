@@ -1,0 +1,55 @@
+# High Knees Exercise Definition
+name: high_knees
+display_name: "High Knees"
+type: repetition
+
+target_muscles:
+  - Hip Flexors
+  - Quads
+  - Core
+equipment: "Bodyweight"
+difficulty: beginner
+default_reps: 20
+default_sets: 3
+description: "Running in place with high knee lifts"
+
+angles:
+  primary:
+    points: [left_shoulder, left_hip, left_knee]
+    description: "Sol kalça açısı"
+
+state_order:
+  - up
+  - lift
+  - down
+
+states:
+  down:
+    condition: "angle > 150"
+    description: "Bacak düz"
+  
+  lift:
+    condition: "angle > 100 and angle <= 150"
+    description: "Kaldırma"
+  
+  up:
+    condition: "angle <= 100"
+    description: "Diz yukarıda"
+
+counter:
+  trigger_state: up
+  from_state: lift
+
+min_rep_duration: 0.2
+
+feedback:
+  knee_low:
+    condition: "angle > 110"
+    message: "Drive knee higher!"
+    severity: info
+
+visualization:
+  lines:
+    - points: [left_hip, left_knee]
+      color: [255, 0, 0]
+      thickness: 4

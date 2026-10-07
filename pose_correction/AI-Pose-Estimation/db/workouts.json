@@ -1,0 +1,344 @@
+[
+  {
+    "date": "2026-03-23 10:42",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 16,
+    "form_score": null,
+    "timestamp": "2026-03-23T10:42:17.218153"
+  },
+  {
+    "date": "2026-03-23 10:42",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 0,
+    "form_score": null,
+    "timestamp": "2026-03-23T10:42:24.081112"
+  },
+  {
+    "date": "2026-03-23 10:58",
+    "exercise_type": "shoulder_press",
+    "sets": 1,
+    "reps": 10,
+    "duration_seconds": 19,
+    "form_score": null,
+    "timestamp": "2026-03-23T10:58:46.066549"
+  },
+  {
+    "date": "2026-03-23 11:02",
+    "exercise_type": "lateral_raise",
+    "sets": 1,
+    "reps": 10,
+    "duration_seconds": 14,
+    "form_score": null,
+    "timestamp": "2026-03-23T11:02:25.403979"
+  },
+  {
+    "date": "2026-03-23 11:06",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 54,
+    "form_score": null,
+    "timestamp": "2026-03-23T11:06:33.768230"
+  },
+  {
+    "date": "2026-03-23 11:10",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 24,
+    "form_score": null,
+    "timestamp": "2026-03-23T11:10:43.784005"
+  },
+  {
+    "date": "2026-03-23 11:11",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 14,
+    "form_score": null,
+    "timestamp": "2026-03-23T11:11:08.441016"
+  },
+  {
+    "date": "2026-03-23 11:11",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 6,
+    "form_score": null,
+    "timestamp": "2026-03-23T11:11:16.594615"
+  },
+  {
+    "date": "2026-03-23 11:15",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 3,
+    "form_score": null,
+    "timestamp": "2026-03-23T11:15:28.584324"
+  },
+  {
+    "date": "2026-03-23 11:31",
+    "exercise_type": "push_up",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 2,
+    "form_score": null,
+    "timestamp": "2026-03-23T11:31:06.929887"
+  },
+  {
+    "date": "2026-03-23 11:35",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 32,
+    "form_score": null,
+    "timestamp": "2026-03-23T11:35:03.464898"
+  },
+  {
+    "date": "2026-03-23 11:52",
+    "exercise_type": "shoulder_press",
+    "sets": 1,
+    "reps": 10,
+    "duration_seconds": 19,
+    "form_score": null,
+    "timestamp": "2026-03-23T11:52:46.863157"
+  },
+  {
+    "date": "2026-03-23 12:17",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 7,
+    "form_score": null,
+    "timestamp": "2026-03-23T12:17:36.268357"
+  },
+  {
+    "date": "2026-03-23 12:29",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 3,
+    "form_score": null,
+    "timestamp": "2026-03-23T12:29:05.830922"
+  },
+  {
+    "date": "2026-03-23 13:05",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 8,
+    "form_score": null,
+    "timestamp": "2026-03-23T13:05:16.265001"
+  },
+  {
+    "date": "2026-03-23 13:05",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 8,
+    "form_score": null,
+    "timestamp": "2026-03-23T13:05:29.423970"
+  },
+  {
+    "date": "2026-03-23 13:05",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 2,
+    "form_score": null,
+    "timestamp": "2026-03-23T13:05:36.357554"
+  },
+  {
+    "date": "2026-03-23 13:05",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 1,
+    "form_score": null,
+    "timestamp": "2026-03-23T13:05:39.074635"
+  },
+  {
+    "date": "2026-03-23 13:06",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 16,
+    "form_score": null,
+    "timestamp": "2026-03-23T13:06:27.021525"
+  },
+  {
+    "date": "2026-03-23 13:07",
+    "exercise_type": "shoulder_press",
+    "sets": 1,
+    "reps": 10,
+    "duration_seconds": 22,
+    "form_score": null,
+    "timestamp": "2026-03-23T13:07:54.054024"
+  },
+  {
+    "date": "2026-03-23 13:23",
+    "exercise_type": "squat",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 1,
+    "form_score": null,
+    "timestamp": "2026-03-23T13:23:40.426516"
+  },
+  {
+    "date": "2026-03-23 14:24",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 12,
+    "form_score": null,
+    "timestamp": "2026-03-23T14:24:12.287481"
+  },
+  {
+    "date": "2026-03-23 15:04",
+    "exercise_type": "push_up",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 9,
+    "form_score": null,
+    "timestamp": "2026-03-23T15:04:30.794144"
+  },
+  {
+    "date": "2026-03-23 15:59",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 43,
+    "form_score": null,
+    "timestamp": "2026-03-23T15:59:39.862996"
+  },
+  {
+    "date": "2026-03-23 16:03",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 49,
+    "form_score": null,
+    "timestamp": "2026-03-23T16:03:17.484048"
+  },
+  {
+    "date": "2026-03-23 16:03",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 3,
+    "duration_seconds": 26,
+    "form_score": null,
+    "timestamp": "2026-03-23T16:03:46.093641"
+  },
+  {
+    "date": "2026-03-23 16:05",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 3,
+    "duration_seconds": 32,
+    "form_score": null,
+    "timestamp": "2026-03-23T16:05:54.774416"
+  },
+  {
+    "date": "2026-03-23 16:07",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 3,
+    "duration_seconds": 14,
+    "form_score": null,
+    "timestamp": "2026-03-23T16:07:37.821024"
+  },
+  {
+    "date": "2026-03-23 16:16",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 3,
+    "form_score": null,
+    "timestamp": "2026-03-23T16:16:03.920287"
+  },
+  {
+    "date": "2026-03-23 16:18",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 3,
+    "duration_seconds": 75,
+    "form_score": null,
+    "timestamp": "2026-03-23T16:18:21.145961"
+  },
+  {
+    "date": "2026-03-23 16:27",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 10,
+    "duration_seconds": 11,
+    "form_score": null,
+    "timestamp": "2026-03-23T16:27:19.826205"
+  },
+  {
+    "date": "2026-04-03 19:46",
+    "exercise_type": "shoulder_press",
+    "sets": 1,
+    "reps": 2,
+    "duration_seconds": 72,
+    "form_score": null,
+    "timestamp": "2026-04-03T19:46:36.401093"
+  },
+  {
+    "date": "2026-04-03 19:48",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 2,
+    "duration_seconds": 41,
+    "form_score": null,
+    "timestamp": "2026-04-03T19:48:50.342438"
+  },
+  {
+    "date": "2026-04-03 20:00",
+    "exercise_type": "bicep_curl",
+    "sets": 0,
+    "reps": 4,
+    "duration_seconds": 7,
+    "form_score": null,
+    "timestamp": "2026-04-03T20:00:03.938706"
+  },
+  {
+    "date": "2026-04-03 20:01",
+    "exercise_type": "jumping_jack",
+    "sets": 0,
+    "reps": 3,
+    "duration_seconds": 2,
+    "form_score": null,
+    "timestamp": "2026-04-03T20:01:34.859712"
+  },
+  {
+    "date": "2026-04-03 20:01",
+    "exercise_type": "jumping_jack",
+    "sets": 1,
+    "reps": 3,
+    "duration_seconds": 13,
+    "form_score": null,
+    "timestamp": "2026-04-03T20:01:50.242199"
+  },
+  {
+    "date": "2026-04-04 13:08",
+    "exercise_type": "shoulder_press",
+    "sets": 0,
+    "reps": 3,
+    "duration_seconds": 18,
+    "form_score": null,
+    "timestamp": "2026-04-04T13:08:17.697683"
+  },
+  {
+    "date": "2026-05-02 12:39",
+    "exercise_type": "bicep_curl",
+    "sets": 0,
+    "reps": 3,
+    "duration_seconds": 2,
+    "form_score": null,
+    "timestamp": "2026-05-02T12:39:07.400267"
+  }
+]

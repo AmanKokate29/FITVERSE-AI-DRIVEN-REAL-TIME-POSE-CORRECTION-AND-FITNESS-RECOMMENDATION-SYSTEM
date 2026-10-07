@@ -1,0 +1,88 @@
+# Side Lunge Exercise Definition
+
+name: side_lunge
+display_name: "Side Lunge"
+type: repetition
+
+target_muscles:
+  - Quadriceps
+  - Gluteus
+  - Adductors
+  - Hip Flexors
+equipment: "Bodyweight"
+difficulty: beginner
+default_reps: 10
+default_sets: 3
+rest_time: "60 seconds"
+benefits:
+  - "Improves lateral movement"
+  - "Strengthens inner thigh"
+  - "Enhances hip mobility"
+description: "Lateral lunge for inner thigh and hip mobility"
+
+angles:
+  primary:
+    points: [left_hip, left_knee, left_ankle]
+    description: "Bükülen bacak diz açısı"
+  
+  standing_leg:
+    points: [right_hip, right_knee, right_ankle]
+    description: "Sabit bacak açısı"
+
+state_order:
+  - bottom
+  - descent
+  - start
+
+states:
+  start:
+    condition: "angle > 160"
+    description: "Başlangıç - ayaklar geniş"
+  
+  descent:
+    condition: "angle > 100 and angle <= 160"
+    description: "Yana iniş"
+  
+  bottom:
+    condition: "angle <= 100"
+    description: "Alt pozisyon"
+
+counter:
+  trigger_state: bottom
+  from_state: descent
+
+min_rep_duration: 1.0
+
+feedback:
+  knee_caving:
+    condition: "left_knee_x < left_ankle_x"
+    message: "Your knee is caving inward!"
+    severity: warning
+  
+  standing_leg_bent:
+    condition: "standing_leg_angle < 160"
+    message: "Keep your standing leg straight!"
+    severity: warning
+
+calibration:
+  enabled: true
+  reps: 3
+
+smoothing:
+  enabled: true
+  window: 3
+
+visualization:
+  lines:
+    - points: [left_hip, left_knee]
+      color: [255, 100, 100]
+      thickness: 2
+    - points: [left_knee, left_ankle]
+      color: [255, 100, 100]
+      thickness: 2
+    - points: [right_hip, right_knee]
+      color: [100, 100, 255]
+      thickness: 2
+    - points: [right_knee, right_ankle]
+      color: [100, 100, 255]
+      thickness: 2

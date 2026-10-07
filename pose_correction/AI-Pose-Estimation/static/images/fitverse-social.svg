@@ -1,0 +1,58 @@
+<!-- FitVerse — Social Media Profile Square (500×500) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="FitVerse social media icon">
+  <title>FitVerse — Fitness Evolved</title>
+  <defs>
+    <!-- Background -->
+    <linearGradient id="soc-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#111111"/>
+    </linearGradient>
+    <!-- Underline gradient for FIT -->
+    <linearGradient id="soc-ul" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#22c55e" stop-opacity="1"/>
+      <stop offset="75%"  stop-color="#22c55e" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" fill="url(#soc-bg)"/>
+
+  <!-- FIT — white bold italic, centred horizontally as a group with VERSE -->
+  <!-- Group centred at y≈260 -->
+  <text
+    x="32" y="295"
+    font-family="'Inter','Helvetica Neue','Arial Black',Arial,sans-serif"
+    font-weight="900"
+    font-style="italic"
+    font-size="118"
+    letter-spacing="-2"
+    fill="#FFFFFF">FIT</text>
+
+  <!-- Diagonal accent bar between FIT and VERSE -->
+  <polygon points="316,175 332,175 325,312 309,312" fill="#22c55e"/>
+
+  <!-- VERSE — solid green -->
+  <text
+    x="322" y="295"
+    font-family="'Inter','Helvetica Neue','Arial Black',Arial,sans-serif"
+    font-weight="900"
+    font-style="italic"
+    font-size="78"
+    letter-spacing="-1"
+    fill="#22c55e">VERSE</text>
+
+  <!-- Underline under FIT (fades right) -->
+  <rect x="32" y="316" width="285" height="4" rx="2" fill="url(#soc-ul)"/>
+
+  <!-- Tagline -->
+  <text
+    x="250" y="400"
+    text-anchor="middle"
+    font-family="'Inter','Helvetica Neue',Arial,sans-serif"
+    font-weight="500"
+    font-size="22"
+    fill="#22c55e"
+    letter-spacing="6"
+    opacity="0.65">FITNESS EVOLVED</text>
+</svg>

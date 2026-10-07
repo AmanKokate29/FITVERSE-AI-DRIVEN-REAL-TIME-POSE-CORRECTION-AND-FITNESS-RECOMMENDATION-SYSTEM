@@ -1,0 +1,39 @@
+<!-- FitVerse — Horizontal Wordmark Logo (transparent background) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 82" width="560" height="82" role="img" aria-label="FitVerse">
+  <title>FitVerse</title>
+  <defs>
+    <!-- Underline fades to transparent -->
+    <linearGradient id="lv-ul" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#22c55e" stop-opacity="1"/>
+      <stop offset="75%"  stop-color="#22c55e" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- FIT — pure white, bold italic, tight -->
+  <text
+    x="4" y="63"
+    font-family="'Inter','Helvetica Neue','Arial Black',Arial,sans-serif"
+    font-weight="900"
+    font-style="italic"
+    font-size="64"
+    letter-spacing="-1"
+    fill="#FFFFFF">FIT</text>
+
+  <!-- Diagonal green accent bar between FIT and VERSE -->
+  <!-- Parallelogram leaning right to match italic angle -->
+  <polygon points="180,4 189,4 185,71 176,71" fill="#22c55e"/>
+
+  <!-- VERSE — solid bright green, same size, tight -->
+  <text
+    x="186" y="63"
+    font-family="'Inter','Helvetica Neue','Arial Black',Arial,sans-serif"
+    font-weight="900"
+    font-style="italic"
+    font-size="64"
+    letter-spacing="-1"
+    fill="#22c55e">VERSE</text>
+
+  <!-- Short underline accent under FIT only (fades right) -->
+  <rect x="4" y="73" width="165" height="3" rx="1.5" fill="url(#lv-ul)"/>
+</svg>

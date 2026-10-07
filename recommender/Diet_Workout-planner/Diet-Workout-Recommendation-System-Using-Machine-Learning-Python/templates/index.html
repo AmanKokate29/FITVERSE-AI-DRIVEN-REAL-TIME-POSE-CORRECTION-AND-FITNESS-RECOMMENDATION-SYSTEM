@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitVerse | Personalized Diet & Workout Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-gray-100">
+    <header class="hero-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white border border-gray-200 rounded-xl hover:border-green-600 transition-colors hero-card">
+                <h1 class="font-bold text-gray-900"><span class="text-green-600">FitVerse</span> Diet & Workout Planner</h1>
+                <p class="text-gray-600 hero-subtext">
+                    Share your profile once and get your personalized <span class="text-green-600">FitVerse</span> recommendations for meals, workouts, and healthier daily habits.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 main-content">
+        <section class="bg-white border border-gray-200 rounded-xl hover:border-green-600 transition-colors panel-card card-shadow">
+            <h2 class="font-bold text-gray-900">Build your <span class="text-green-600">FitVerse</span> plan</h2>
+            <form action="/recommendations" method="POST" class="form-grid">
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Age</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="age" placeholder="e.g., 25" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Gender</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="gender" placeholder="e.g., Male / Female / Other" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Height (cm)</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="height" placeholder="e.g., 175" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Weight (kg)</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="weight" placeholder="e.g., 75" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Dietary Preferences</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="dietary_preferences" placeholder="e.g., Vegetarian, Non-Vegetarian, Vegan, Jain" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Fitness Goals</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="fitness_goals" placeholder="e.g., Weight Loss, Weight Gain, Muscle Gain, General Fitness" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Activity Level</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="activity_level" placeholder="e.g., Sedentary, Moderate, Active" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Lifestyle Factors</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="lifestyle_factors" placeholder="e.g., Work from home, Outdoor work" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Dietary Restrictions</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="dietary_restrictions" placeholder="e.g., Gluten-free, Lactose-intolerant, Nut allergy" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Health Conditions</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="health_conditions" placeholder="e.g., Diabetes, High blood pressure, None" required>
+                </div>
+
+                <div class="field-group">
+                    <label class="font-bold text-gray-700">Budget Preference</label>
+                    <input class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" type="text" name="budget" placeholder="e.g., Low, Medium, High" required>
+                </div>
+
+                <div class="field-group field-group-full">
+                    <label class="font-bold text-gray-700">Your Query</label>
+                    <textarea class="input-control border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" name="user_query" placeholder="Describe your fitness goals and expectations briefly" required></textarea>
+                </div>
+
+                <div class="field-group-full">
+                    <button class="bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 shadow-lg hover:shadow-xl min-touch" type="submit">Get Recommendations</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitVerse – Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --green-primary: #22c55e;
+      --green-dark: #16a34a;
+      --green-light: #dcfce7;
+      --green-muted: #bbf7d0;
+      --green: #22c55e;
+      --green-bg: #dcfce7;
+      --green-border: #bbf7d0;
+      --sidebar-bg: #0f1f13;
+      --sidebar-text: #d1d5db;
+      --sidebar-muted: #6b7280;
+      --page-bg: #f4f6f4;
+      --card-bg: #ffffff;
+      --text-dark: #111827;
+      --text-gray: #6b7280;
+      --text-light: #9ca3af;
+      --border: #e5e7eb;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font);
+      background: var(--page-bg);
+      color: var(--text-dark);
+    }
+
+    .app { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 260px;
+      min-height: 100vh;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 0 24px;
+      position: fixed;
+      left: 0; top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      padding: 0 24px 32px;
+    }
+    .logo-title {
+      font-family: var(--font);
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .logo-title span { color: var(--green-primary); }
+    .logo-sub {
+      font-size: 12px;
+      color: var(--sidebar-muted);
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    nav { flex: 1; padding: 0 12px; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--sidebar-text);
+      font-size: 14.5px;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      margin-bottom: 2px;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
+    .nav-item.active {
+      background: rgba(34,197,94,0.18);
+      color: var(--green-primary);
+    }
+    .nav-item svg { flex-shrink: 0; opacity: 0.85; }
+    .nav-item.active svg { opacity: 1; }
+
+    .pro-tip {
+      margin: 24px 12px 0;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .pro-tip-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green-primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .pro-tip p {
+      font-size: 12.5px;
+      color: var(--sidebar-muted);
+      line-height: 1.5;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: 260px;
+      flex: 1;
+      padding: 52px 56px;
+      max-width: calc(100vw - 260px);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      border: 1px solid var(--green-muted);
+    }
+    .badge svg { color: var(--green-primary); }
+
+
+    /* ══════════════════════════
+       MAIN
+    ══════════════════════════ */
+    .main {
+      margin-left: 260px;
+      flex: 1;
+      padding: 42px 52px 56px;
+      min-height: 100vh;
+    }
+
+    .page-title {
+      font-size: 32px; font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.025em; line-height: 1;
+      margin-bottom: 8px;
+    }
+    .page-subtitle {
+      font-size: 14.5px; color: var(--text-gray);
+      font-weight: 400; margin-bottom: 28px;
+    }
+
+    /* ══════════════════════════
+       STAT CARDS
+    ══════════════════════════ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px 22px;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+    .stat-card:hover {
+      box-shadow: 0 6px 22px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .stat-header {
+      display: flex; align-items: center;
+      gap: 10px; margin-bottom: 16px;
+    }
+    .stat-icon {
+      width: 38px; height: 38px;
+      background: var(--green-bg);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green); flex-shrink: 0;
+    }
+    .stat-icon svg {
+      width: 18px; height: 18px;
+      stroke: currentColor; fill: none; stroke-width: 2;
+    }
+    .stat-label {
+      font-size: 13px; font-weight: 500;
+      color: var(--text-gray);
+    }
+
+    .stat-value {
+      font-size: 32px; font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.025em;
+      line-height: 1; margin-bottom: 5px;
+    }
+    .stat-delta {
+      font-size: 12.5px; font-weight: 500;
+      color: var(--green-dark);
+    }
+
+    /* ══════════════════════════
+       CHART CARD
+    ══════════════════════════ */
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 28px 24px;
+    }
+
+    .chart-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+      margin-bottom: 22px;
+    }
+
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      height: 240px;
+    }
+
+    canvas#lineChart {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* ══════════════════════════
+       PIE CHART CARD
+    ══════════════════════════ */
+    .pie-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 28px 26px;
+      margin-top: 20px;
+    }
+    .pie-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 26px;
+    }
+    .pie-card-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--text-dark); letter-spacing: -0.01em;
+    }
+    .live-pill {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700;
+      color: var(--green-dark);
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      padding: 3px 10px; border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      animation: blink 1.4s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+    .pie-body {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0 40px;
+      align-items: center;
+    }
+
+    .pie-canvas-wrap {
+      position: relative;
+      width: 220px; height: 220px;
+      flex-shrink: 0;
+    }
+    .pie-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+    }
+    .pie-center-num {
+      font-size: 24px; font-weight: 800;
+      color: var(--text-dark); letter-spacing: -0.02em; line-height: 1;
+    }
+    .pie-center-lbl {
+      font-size: 10.5px; color: var(--text-light);
+      font-weight: 500; margin-top: 2px;
+    }
+
+    .pie-legend { display: flex; flex-direction: column; gap: 12px; }
+    .legend-item {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .legend-swatch {
+      width: 10px; height: 10px;
+      border-radius: 3px; flex-shrink: 0;
+    }
+    .legend-info { flex: 1; }
+    .legend-name {
+      font-size: 13px; font-weight: 600;
+      color: var(--text-dark); line-height: 1;
+      margin-bottom: 3px; text-transform: capitalize;
+    }
+    .legend-bar-wrap {
+      height: 3px; background: #f3f4f6;
+      border-radius: 999px; overflow: hidden;
+    }
+    .legend-bar {
+      height: 100%; border-radius: 999px;
+      transition: width 0.7s ease;
+    }
+    .legend-right {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+    }
+    .legend-count {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-dark);
+    }
+    .legend-pct {
+      font-size: 11px; color: var(--text-light); font-weight: 500;
+    }
+
+    /* BAR CHART CARD */
+    .bar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 28px 24px;
+      margin-top: 20px;
+    }
+    .bar-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .bar-card-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--text-dark); letter-spacing: -0.01em;
+    }
+    .bar-tabs {
+      display: flex; gap: 4px;
+      background: #f3f4f6;
+      border-radius: 8px; padding: 3px;
+    }
+    .bar-tab {
+      padding: 5px 13px; border-radius: 6px;
+      font-size: 12px; font-weight: 600;
+      color: var(--text-gray); cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      border: none; background: transparent;
+      font-family: var(--font);
+    }
+    .bar-tab.active {
+      background: var(--card-bg);
+      color: var(--text-dark);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.09);
+    }
+    .bar-chart-wrap {
+      position: relative;
+      width: 100%; height: 220px;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-title">Fit<span>Verse</span></div>
+      <div class="logo-sub">AI Powered Fitness Platform</div>
+    </div>
+
+    <nav>
+      <a class="nav-item" href="/">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9.75L12 3l9 6.75V21H3V9.75z"/><path d="M9 21v-6h6v6"/></svg>
+        Home
+      </a>
+      <a class="nav-item" href="/live_camera">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        Live Camera
+      </a>
+      <a class="nav-item" href="/video_analysis">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="15" height="12" rx="2"/><path d="m17 10 5-3v10l-5-3"/></svg>
+        Video Analysis
+      </a>
+      <a class="nav-item active" href="/dashboard">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" href="/profile">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Profile
+      </a>
+    </nav>
+
+    <div class="pro-tip">
+      <div class="pro-tip-label">Pro Tip</div>
+      <p>Upload a video to get instant pose analysis with joint tracking.</p>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <h1 class="page-title">Dashboard</h1>
+    <p class="page-subtitle">Your pose estimation performance at a glance.</p>
+
+    <!-- Stat Cards -->
+    <div class="stats-grid">
+
+      <!-- Total Sessions -->
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <span class="stat-label">Total Sessions</span>
+        </div>
+        <div class="stat-value">{{ total_workouts }}</div>
+        <div class="stat-delta">+{{ weekly_workouts }} this week</div>
+      </div>
+
+      <!-- Avg Accuracy -->
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <span class="stat-label">Total Exercises</span>
+        </div>
+        <div class="stat-value">{{ total_exercises }}</div>
+        <div class="stat-delta">reps completed</div>
+      </div>
+
+      <!-- Improvement -->
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <span class="stat-label">Current Streak</span>
+        </div>
+        <div class="stat-value">{{ streak_days }} days</div>
+        <div class="stat-delta">keep it up!</div>
+      </div>
+
+      <!-- Time Tracked -->
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <span class="stat-label">Time Tracked</span>
+        </div>
+        <div class="stat-value">{{ total_hours }}h</div>
+        <div class="stat-delta">total workout time</div>
+      </div>
+
+    </div>
+
+    <!-- Line Chart -->
+    <div class="chart-card">
+      <div class="chart-title">Weekly Accuracy Trend</div>
+      <div class="chart-wrap">
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="pie-card">
+      <div class="pie-card-header">
+        <div class="pie-card-title">Exercise Distribution</div>
+        <div class="live-pill">
+          <div class="live-dot"></div>
+          LIVE
+        </div>
+      </div>
+      <div class="pie-body">
+        <div class="pie-canvas-wrap">
+          <canvas id="pieChart"></canvas>
+          <div class="pie-center">
+            <div class="pie-center-num" id="pieTotalNum">{{ total_workouts }}</div>
+            <div class="pie-center-lbl">sessions</div>
+          </div>
+        </div>
+        <div class="pie-legend" id="pieLegend"></div>
+      </div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="bar-card">
+      <div class="bar-card-header">
+        <div class="bar-card-title">Sessions per Day</div>
+        <div class="bar-tabs">
+          <button class="bar-tab active" onclick="switchTab(this,'week')">This Week</button>
+          <button class="bar-tab" onclick="switchTab(this,'month')">This Month</button>
+          <button class="bar-tab" onclick="switchTab(this,'year')">This Year</button>
+        </div>
+      </div>
+      <div class="bar-chart-wrap">
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // ── Weekly stats from Flask ──
+  const weeklyStats = {{ weekly_stats | tojson }};
+  
+  // ── Minimal canvas chart — no library needed ──
+  const canvas = document.getElementById('lineChart');
+  const ctx = canvas.getContext('2d');
+
+  // Generate chart data from weekly stats
+  const dayOrder = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const values = dayOrder.map(day => {
+    const dayData = weeklyStats[day];
+    // Generate a pseudo-accuracy based on workout count (or default to 85-95 range)
+    if (dayData && dayData.workout_count > 0) {
+      // Higher workout count = higher accuracy (between 85-98)
+      return Math.min(98, 85 + (dayData.workout_count * 3));
+    }
+    return 0; // No workout
+  });
+
+  const DATA = { labels, values };
+
+  // Generate smooth curve points from real data
+  const PTS = [];
+  const validValues = values.filter(v => v > 0);
+  const maxVal = validValues.length > 0 ? Math.max(...validValues) : 95;
+  const minVal = validValues.length > 0 ? Math.min(...validValues.filter(v => v > 0)) || 85 : 85;
+  
+  // Create smooth points based on actual data
+  for (let i = 0; i < 13; i++) {
+    const ratio = i / 12;
+    const dayIndex = Math.floor(ratio * 6);
+    const nextDayIndex = Math.min(dayIndex + 1, 6);
+    const dayFraction = (ratio * 6) % 1;
+    
+    let y;
+    if (values[dayIndex] === 0 && values[nextDayIndex] === 0) {
+      y = 85; // No data, show baseline
+    } else if (values[dayIndex] === 0) {
+      y = values[nextDayIndex];
+    } else if (values[nextDayIndex] === 0) {
+      y = values[dayIndex];
+    } else {
+      // Interpolate between days
+      y = values[dayIndex] + (values[nextDayIndex] - values[dayIndex]) * dayFraction;
+    }
+    PTS.push({ x: ratio, y: y });
+  }
+
+  const YMIN = 80, YMAX = 100;
+  const PADDING = { top: 14, right: 16, bottom: 36, left: 44 };
+
+  // ── Exercise distribution pie chart data ──
+  const exerciseDist = {{ exercise_distribution | tojson }};
+  const pieTotal = {{ total_workouts }};
+  const pieData = Object.keys(exerciseDist).map(key => ({
+    label: key.replace('_', ' ').toUpperCase(),
+    value: exerciseDist[key]
+  }));
+  
+  // Update pie center number
+  document.getElementById('pieTotalNum').textContent = pieTotal;
+  
+  // Generate pie legend
+  const legendEl = document.getElementById('pieLegend');
+  const colors = ['#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6'];
+  pieData.forEach((item, i) => {
+    const pct = Math.round((item.value / pieTotal) * 100);
+    legendEl.innerHTML += `
+      <div class="pie-legend-item">
+        <span class="pie-legend-dot" style="background:${colors[i % colors.length]}"></span>
+        <span class="pie-legend-label">${item.label}</span>
+        <span class="pie-legend-pct">${pct}%</span>
+      </div>
+    `;
+  });
+
+  function draw() {
+    const W = canvas.width;
+    const H = canvas.height;
+    const pw = W - PADDING.left - PADDING.right;
+    const ph = H - PADDING.top - PADDING.bottom;
+
+    ctx.clearRect(0, 0, W, H);
+
+    function toX(ratio) { return PADDING.left + ratio * pw; }
+    function toY(val)   { return PADDING.top + (1 - (val - YMIN) / (YMAX - YMIN)) * ph; }
+
+    // ── Grid lines & Y labels ──
+    const yTicks = [80, 85, 90, 95, 100];
+    ctx.font = '11px Plus Jakarta Sans, sans-serif';
+    ctx.fillStyle = '#9ca3af';
+    ctx.textAlign = 'right';
+
+    yTicks.forEach(v => {
+      const y = toY(v);
+      // label
+      ctx.fillText(v, PADDING.left - 8, y + 4);
+      // dashed line
+      ctx.beginPath();
+      ctx.setLineDash([3, 4]);
+      ctx.strokeStyle = '#e5e7eb';
+      ctx.lineWidth = 1;
+      ctx.moveTo(PADDING.left, y);
+      ctx.lineTo(PADDING.left + pw, y);
+      ctx.stroke();
+    });
+
+    // ── X labels ──
+    ctx.setLineDash([]);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#9ca3af';
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    days.forEach((d, i) => {
+      const x = toX(i / (days.length - 1));
+      ctx.fillText(d, x, H - 6);
+      // vertical dashed line
+      ctx.beginPath();
+      ctx.setLineDash([3, 4]);
+      ctx.strokeStyle = '#e5e7eb';
+      ctx.lineWidth = 1;
+      ctx.moveTo(x, PADDING.top);
+      ctx.lineTo(x, PADDING.top + ph);
+      ctx.stroke();
+    });
+    ctx.setLineDash([]);
+
+    // ── Build smooth path ──
+    function buildPath() {
+      ctx.beginPath();
+      // Catmull-Rom to Bezier
+      for (let i = 0; i < PTS.length; i++) {
+        const x = toX(PTS[i].x);
+        const y = toY(PTS[i].y);
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          const prev = PTS[i - 1];
+          const px = toX(prev.x), py = toY(prev.y);
+          const cp1x = px + (x - toX(i > 1 ? PTS[i - 2].x : prev.x)) / 6;
+          const cp1y = py + (y - toY(i > 1 ? PTS[i - 2].y : prev.y)) / 6;
+          const cp2x = x - (toX(i < PTS.length - 1 ? PTS[i + 1].x : PTS[i].x) - px) / 6;
+          const cp2y = y - (toY(i < PTS.length - 1 ? PTS[i + 1].y : PTS[i].y) - py) / 6;
+          ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+        }
+      }
+    }
+
+    // ── Fill under curve ──
+    const grad = ctx.createLinearGradient(0, PADDING.top, 0, PADDING.top + ph);
+    grad.addColorStop(0, 'rgba(34,197,94,0.18)');
+    grad.addColorStop(1, 'rgba(34,197,94,0.01)');
+
+    buildPath();
+    ctx.lineTo(toX(PTS[PTS.length - 1].x), PADDING.top + ph);
+    ctx.lineTo(toX(PTS[0].x), PADDING.top + ph);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // ── Stroke line ──
+    buildPath();
+    ctx.strokeStyle = '#16a34a';
+    ctx.lineWidth = 2.2;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.setLineDash([]);
+    ctx.stroke();
+  }
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width  = rect.width  * window.devicePixelRatio;
+    canvas.height = rect.height * window.devicePixelRatio;
+    canvas.style.width  = rect.width  + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    draw();
+  }
+
+  window.addEventListener('resize', resize);
+  // Wait for font to load
+  document.fonts.ready.then(resize);
+
+  // ══════════════════════════════════════
+  // PIE CHART — Real-time exercise data
+  // ══════════════════════════════════════
+  const COLORS = [
+    '#22c55e','#3b82f6','#f97316','#8b5cf6',
+    '#ec4899','#14b8a6','#f59e0b','#ef4444'
+  ];
+
+  // Exercise distribution data from Flask
+  let exerciseData = exerciseDist;
+
+  const pieCanvas = document.getElementById('pieChart');
+  const pieCtx    = pieCanvas.getContext('2d');
+
+  function drawPie() {
+    const wrap  = pieCanvas.parentElement;
+    const size  = wrap.offsetWidth;
+    const dpr   = window.devicePixelRatio || 1;
+    pieCanvas.width  = size * dpr;
+    pieCanvas.height = size * dpr;
+    pieCanvas.style.width  = size + 'px';
+    pieCanvas.style.height = size + 'px';
+    pieCtx.scale(dpr, dpr);
+
+    const cx = size / 2, cy = size / 2;
+    const outerR = size / 2 - 4;
+    const innerR = outerR * 0.52;
+
+    const labels = Object.keys(exerciseData);
+    const values = Object.values(exerciseData);
+    const total  = values.reduce((a, b) => a + b, 0);
+
+    if (total === 0) return;
+
+    // Update center number
+    document.getElementById('pieTotalNum').textContent = total;
+
+    let angle = -Math.PI / 2;
+
+    // Draw slices
+    values.forEach((val, i) => {
+      const sweep = (val / total) * Math.PI * 2;
+      const endAngle = angle + sweep;
+      const midAngle = angle + sweep / 2;
+
+      // Slight gap between slices
+      const gap = 0.018;
+
+      pieCtx.beginPath();
+      pieCtx.moveTo(cx, cy);
+      pieCtx.arc(cx, cy, outerR, angle + gap, endAngle - gap);
+      pieCtx.closePath();
+      pieCtx.fillStyle = COLORS[i % COLORS.length];
+      pieCtx.fill();
+
+      angle = endAngle;
+    });
+
+    // Donut hole
+    pieCtx.beginPath();
+    pieCtx.arc(cx, cy, innerR, 0, Math.PI * 2);
+    pieCtx.fillStyle = '#ffffff';
+    pieCtx.fill();
+
+    // Legend
+    const legend = document.getElementById('pieLegend');
+    legend.innerHTML = labels.map((label, i) => {
+      const val  = exerciseData[label];
+      const pct  = Math.round((val / total) * 100);
+      const clr  = COLORS[i % COLORS.length];
+      return `
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:${clr}"></div>
+          <div class="legend-info">
+            <div class="legend-name">${label}</div>
+            <div class="legend-bar-wrap">
+              <div class="legend-bar" style="width:${pct}%;background:${clr}"></div>
+            </div>
+          </div>
+          <div class="legend-right">
+            <span class="legend-count">${val}</span>
+            <span class="legend-pct">${pct}%</span>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  document.fonts.ready.then(drawPie);
+
+  window.addEventListener('resize', drawPie);
+
+  // ══════════════════════════════════════
+  // BAR CHART — Sessions per Day
+  // ══════════════════════════════════════
+  const barCanvas = document.getElementById('barChart');
+  const barCtx    = barCanvas.getContext('2d');
+
+  // Generate bar chart data from weekly stats
+  const barDayOrder = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  
+  // Week data from real weeklyStats
+  const weekValues = barDayOrder.map(day => {
+    const dayData = weeklyStats[day];
+    return dayData ? dayData.workout_count : 0;
+  });
+  
+  // Calculate month values (fake for now - sum of 4 weeks)
+  const monthValues = [
+    Math.round(weekValues.reduce((a,b)=>a+b,0) * 0.8),
+    Math.round(weekValues.reduce((a,b)=>a+b,0) * 1.1),
+    Math.round(weekValues.reduce((a,b)=>a+b,0) * 0.9),
+    Math.round(weekValues.reduce((a,b)=>a+b,0) * 1.0)
+  ];
+  
+  // Calculate year values (fake for now)
+  const yearValues = monthValues.flatMap(v => [v, v + Math.floor(Math.random()*10)]).slice(0, 12);
+  
+  const BAR_DATA = {
+    week:  {
+      labels: dayLabels,
+      values: weekValues
+    },
+    month: {
+      labels: ['W1','W2','W3','W4'],
+      values: monthValues
+    },
+    year:  {
+      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      values: yearValues
+    },
+  };
+
+  let activeTab   = 'week';
+  let barAnimPct  = 0;
+  let barAnimFrame = null;
+
+  function switchTab(el, tab) {
+    document.querySelectorAll('.bar-tab').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    activeTab = tab;
+    barAnimPct = 0;
+    if (barAnimFrame) cancelAnimationFrame(barAnimFrame);
+    animateBar();
+  }
+
+  function drawBar(animPct) {
+    const rect = barCanvas.parentElement.getBoundingClientRect();
+    const dpr  = window.devicePixelRatio || 1;
+    barCanvas.width  = rect.width  * dpr;
+    barCanvas.height = rect.height * dpr;
+    barCanvas.style.width  = rect.width  + 'px';
+    barCanvas.style.height = rect.height + 'px';
+    barCtx.scale(dpr, dpr);
+
+    const W  = rect.width;
+    const H  = rect.height;
+    const PAD = { top: 24, right: 16, bottom: 36, left: 44 };
+    const pw  = W - PAD.left - PAD.right;
+    const ph  = H - PAD.top  - PAD.bottom;
+
+    const { labels, values } = BAR_DATA[activeTab];
+    const maxVal = Math.max(...values);
+    const yMax   = Math.ceil(maxVal / 10) * 10 + 10;
+    const gap    = pw / labels.length;
+    const barW   = gap * 0.52;
+
+    barCtx.clearRect(0, 0, W, H);
+
+    // Y-axis grid + labels
+    const ySteps = 5;
+    for (let i = 0; i <= ySteps; i++) {
+      const val = Math.round((yMax / ySteps) * i);
+      const y   = PAD.top + ph - (val / yMax) * ph;
+
+      barCtx.font      = '11px Plus Jakarta Sans, sans-serif';
+      barCtx.fillStyle = '#9ca3af';
+      barCtx.textAlign = 'right';
+      barCtx.fillText(val, PAD.left - 8, y + 4);
+
+      barCtx.beginPath();
+      barCtx.setLineDash([3, 4]);
+      barCtx.strokeStyle = '#e5e7eb';
+      barCtx.lineWidth   = 1;
+      barCtx.moveTo(PAD.left, y);
+      barCtx.lineTo(PAD.left + pw, y);
+      barCtx.stroke();
+    }
+    barCtx.setLineDash([]);
+
+    // Bars + X labels
+    labels.forEach((lbl, i) => {
+      const cx    = PAD.left + i * gap + gap / 2;
+      const val   = values[i] * animPct;
+      const barH  = (val / yMax) * ph;
+      const bx    = cx - barW / 2;
+      const by    = PAD.top + ph - barH;
+      const r     = Math.min(5, barW / 2);
+
+      // Gradient bar
+      const grad = barCtx.createLinearGradient(0, by, 0, by + barH);
+      grad.addColorStop(0,   '#22c55e');
+      grad.addColorStop(1,   'rgba(34,197,94,0.3)');
+
+      barCtx.beginPath();
+      barCtx.moveTo(bx + r, by);
+      barCtx.lineTo(bx + barW - r, by);
+      barCtx.quadraticCurveTo(bx + barW, by, bx + barW, by + r);
+      barCtx.lineTo(bx + barW, by + barH);
+      barCtx.lineTo(bx, by + barH);
+      barCtx.lineTo(bx, by + r);
+      barCtx.quadraticCurveTo(bx, by, bx + r, by);
+      barCtx.closePath();
+      barCtx.fillStyle = grad;
+      barCtx.fill();
+
+      // Value label on top of bar
+      if (animPct > 0.88) {
+        barCtx.font      = '11px Plus Jakarta Sans, sans-serif';
+        barCtx.fillStyle = '#374151';
+        barCtx.textAlign = 'center';
+        barCtx.fillText(values[i], cx, by - 6);
+      }
+
+      // X label
+      barCtx.font      = '11px Plus Jakarta Sans, sans-serif';
+      barCtx.fillStyle = '#9ca3af';
+      barCtx.textAlign = 'center';
+      barCtx.fillText(lbl, cx, H - 6);
+    });
+  }
+
+  function animateBar() {
+    barAnimPct += 0.065;
+    if (barAnimPct >= 1) { barAnimPct = 1; drawBar(1); return; }
+    drawBar(barAnimPct);
+    barAnimFrame = requestAnimationFrame(animateBar);
+  }
+
+  document.fonts.ready.then(() => {
+    animateBar();
+  });
+
+  window.addEventListener('resize', () => {
+    barAnimPct = 1;
+    drawBar(1);
+  });
+</script>
+</body>
+</html>

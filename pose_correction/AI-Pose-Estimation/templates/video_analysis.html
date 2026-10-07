@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitVerse – Video Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --green-primary: #22c55e;
+      --green-dark: #16a34a;
+      --green-light: #dcfce7;
+      --green-muted: #bbf7d0;
+      --green: #22c55e;
+      --green-bg: #dcfce7;
+      --green-border: #bbf7d0;
+      --sidebar-bg: #0f1f13;
+      --sidebar-text: #d1d5db;
+      --sidebar-muted: #6b7280;
+      --page-bg: #f4f6f4;
+      --card-bg: #ffffff;
+      --text-dark: #111827;
+      --text-gray: #6b7280;
+      --text-light: #9ca3af;
+      --border: #e5e7eb;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font);
+      background: var(--page-bg);
+      color: var(--text-dark);
+    }
+
+    .app { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 260px;
+      min-height: 100vh;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 0 24px;
+      position: fixed;
+      left: 0; top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      padding: 0 24px 32px;
+    }
+    .logo-title {
+      font-family: var(--font);
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .logo-title span { color: var(--green-primary); }
+    .logo-sub {
+      font-size: 12px;
+      color: var(--sidebar-muted);
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    nav { flex: 1; padding: 0 12px; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--sidebar-text);
+      font-size: 14.5px;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      margin-bottom: 2px;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
+    .nav-item.active {
+      background: rgba(34,197,94,0.18);
+      color: var(--green-primary);
+    }
+    .nav-item svg { flex-shrink: 0; opacity: 0.85; }
+    .nav-item.active svg { opacity: 1; }
+
+    .pro-tip {
+      margin: 24px 12px 0;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .pro-tip-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green-primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .pro-tip p {
+      font-size: 12.5px;
+      color: var(--sidebar-muted);
+      line-height: 1.5;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: 260px;
+      flex: 1;
+      padding: 52px 56px;
+      max-width: calc(100vw - 260px);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      border: 1px solid var(--green-muted);
+    }
+    .badge svg { color: var(--green-primary); }
+
+    /* MAIN */
+    .main {
+      margin-left: 260px;
+      flex: 1;
+      padding: 42px 52px 56px;
+      min-height: 100vh;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.025em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .page-subtitle {
+      font-size: 14.5px;
+      color: var(--text-gray);
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    /* DROP ZONE */
+    .dropzone {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1.8px dashed #d1d5db;
+      border-radius: 14px;
+      padding: 52px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .dropzone:hover {
+      border-color: var(--green);
+      background: #fafffe;
+    }
+    .dropzone.drag-over {
+      border-color: var(--green);
+      background: var(--green-bg);
+    }
+    .dropzone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-icon {
+      color: #c0ccca;
+    }
+
+    .drop-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+    }
+    .drop-sub {
+      font-size: 13.5px;
+      color: var(--text-light);
+      font-weight: 400;
+      margin-top: -4px;
+    }
+
+    /* Exercise Selection */
+    .exercise-select-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 14px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .ex-select-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      white-space: nowrap;
+    }
+    .exercise-select {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: var(--font);
+      color: var(--text-dark);
+      background: var(--page-bg);
+      cursor: pointer;
+      transition: border-color 0.13s, box-shadow 0.13s;
+    }
+    .exercise-select:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+    }
+
+    /* Analyze Button */
+    .analyze-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 28px;
+    }
+    .analyze-btn:hover:not(:disabled) {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+    }
+    .analyze-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      opacity: 0.5;
+      transform: none;
+    }
+    .analyze-btn.loading {
+      background: var(--green-dark);
+      pointer-events: none;
+    }
+    .analyze-btn.loading::after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Results Section */
+    .results-section {
+      display: none;
+      margin-top: 24px;
+      padding: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .results-section.show { display: block; }
+    .results-header {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .result-card {
+      padding: 18px;
+      border-radius: 12px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+      color: #fff;
+    }
+    .result-card.warning {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    }
+    .result-card.info {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    }
+    .result-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.85;
+    }
+    .result-value {
+      font-size: 32px;
+      font-weight: 800;
+      margin-top: 6px;
+    }
+    .results-feedback {
+      padding: 16px;
+      background: var(--page-bg);
+      border-radius: 10px;
+    }
+    .feedback-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+    .feedback-item {
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+      font-size: 13px;
+      border-left: 3px solid var(--green);
+      background: #fff;
+    }
+    .feedback-item.warning { border-left-color: #f97316; }
+    .feedback-item.error { border-left-color: #ef4444; }
+
+    /* Recent Uploads */
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.015em;
+      margin-bottom: 14px;
+    }
+
+    .upload-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .upload-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.13s;
+    }
+    .upload-item:last-child { border-bottom: none; }
+    .upload-item:hover { background: #fafafa; }
+
+    .file-icon-wrap {
+      width: 44px; height: 44px;
+      background: var(--green-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--green);
+    }
+    .file-icon-wrap svg {
+      width: 20px; height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .file-info { flex: 1; min-width: 0; }
+    .file-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+    .file-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+    .file-meta svg {
+      width: 12px; height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      flex-shrink: 0;
+      letter-spacing: 0.01em;
+    }
+    .badge-analyzed {
+      background: var(--green-bg);
+      color: var(--green-dark);
+      border: 1px solid var(--green-border);
+    }
+    .badge-pending {
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+    .badge-processing {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .chevron {
+      color: #d1d5db;
+      flex-shrink: 0;
+      margin-left: 8px;
+    }
+    .chevron svg {
+      width: 16px; height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+    .upload-item:hover .chevron { color: #9ca3af; }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #111827;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 11px 18px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding: 20px 16px; }
+      .page-title { font-size: 24px; }
+      .results-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-title">Fit<span>Verse</span></div>
+      <div class="logo-sub">AI Powered Fitness Platform</div>
+    </div>
+
+    <nav>
+      <a class="nav-item" href="/">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9.75L12 3l9 6.75V21H3V9.75z"/><path d="M9 21v-6h6v6"/></svg>
+        Home
+      </a>
+      <a class="nav-item" href="/live_camera">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        Live Camera
+      </a>
+      <a class="nav-item active" href="/video_analysis">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="15" height="12" rx="2"/><path d="m17 10 5-3v10l-5-3"/></svg>
+        Video Analysis
+      </a>
+      <a class="nav-item" href="/dashboard">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" href="/profile">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Profile
+      </a>
+    </nav>
+
+    <div class="pro-tip">
+      <div class="pro-tip-label">Pro Tip</div>
+      <p>Upload a video to get instant pose analysis with joint tracking.</p>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <h1 class="page-title">Video Analysis</h1>
+    <p class="page-subtitle">Upload videos for detailed frame-by-frame pose analysis.</p>
+
+    <!-- Drop Zone -->
+    <div class="dropzone" id="dropzone"
+         ondragover="handleDragOver(event)"
+         ondragleave="handleDragLeave(event)"
+         ondrop="handleDrop(event)">
+      <input type="file" accept="video/mp4,video/quicktime,video/avi" onchange="handleFile(this.files[0])"/>
+
+      <svg class="upload-icon" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+
+      <div class="drop-title">Drop your video here</div>
+      <div class="drop-sub">or click to browse &nbsp;·&nbsp; MP4, MOV, AVI up to 500MB</div>
+    </div>
+
+    <!-- Exercise Selection -->
+    <div class="exercise-select-row">
+      <label class="ex-select-label">Select Exercise Type:</label>
+      <select id="exerciseType" class="exercise-select">
+        <option value="">Choose exercise...</option>
+      </select>
+    </div>
+
+    <!-- Analyze Button -->
+    <button id="analyzeBtn" class="analyze-btn" onclick="startAnalysis()" disabled>
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      Analyze Video
+    </button>
+
+    <!-- Results Section -->
+    <div class="results-section" id="resultsSection">
+      <div class="results-header">Analysis Results</div>
+      <div class="results-grid">
+        <div class="result-card" id="resultReps">
+          <div class="result-label">Reps Completed</div>
+          <div class="result-value" id="resultRepsValue">0</div>
+        </div>
+        <div class="result-card info" id="resultScore">
+          <div class="result-label">Form Score</div>
+          <div class="result-value" id="resultScoreValue">--</div>
+        </div>
+        <div class="result-card warning" id="resultGrade">
+          <div class="result-label">Grade</div>
+          <div class="result-value" id="resultGradeValue">--</div>
+        </div>
+      </div>
+      <div class="results-feedback">
+        <div class="feedback-title">Feedback</div>
+        <div id="resultsFeedbackList"></div>
+      </div>
+    </div>
+
+    <!-- Recent Uploads -->
+    <div class="section-title">Recent Uploads</div>
+    <div class="upload-list" id="uploadList"></div>
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-dot"></div>
+  <span id="toastMsg">File uploaded successfully</span>
+</div>
+
+<script>
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  let currentVideoId = null;
+  let statusPollInterval = null;
+  let selectedFile = null;
+
+  // Load exercises on page load
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadExercises();
+    
+    // Add event listener to exercise select
+    document.getElementById('exerciseType').addEventListener('change', updateAnalyzeButton);
+  });
+
+  // Update analyze button state
+  function updateAnalyzeButton() {
+    const btn = document.getElementById('analyzeBtn');
+    const exerciseType = document.getElementById('exerciseType').value;
+    btn.disabled = !selectedFile || !exerciseType;
+  }
+
+  // Start analysis when button is clicked
+  async function startAnalysis() {
+    const file = selectedFile;
+    const exerciseType = document.getElementById('exerciseType').value;
+    
+    if (!file) {
+      showToast('Please select a video first');
+      return;
+    }
+    
+    if (!exerciseType) {
+      showToast('Please select an exercise type');
+      return;
+    }
+    
+    const btn = document.getElementById('analyzeBtn');
+    btn.classList.add('loading');
+    btn.textContent = 'Analyzing...';
+    
+    await uploadVideo(file, exerciseType);
+    
+    btn.classList.remove('loading');
+    btn.textContent = 'Analyze Video';
+  }
+
+  async function loadExercises() {
+    try {
+      const response = await fetch('/exercises');
+      const data = await response.json();
+      const select = document.getElementById('exerciseType');
+      
+      const commonExercises = [
+        'squat', 'push_up', 'deadlift', 'plank', 'lunge', 'bicep_curl',
+        'calf_raise', 'glute_bridge', 'hammer_curl', 'high_knees', 'jumping_jack',
+        'lateral_raise', 'leg_raise', 'mountain_climber', 'shoulder_press',
+        'side_lunge', 'tricep_dip', 'wall_sit'
+      ];
+      
+      commonExercises.forEach(ex => {
+        const info = data.info[ex] || { name: ex.replace(/_/g, ' ') };
+        const opt = document.createElement('option');
+        opt.value = ex;
+        opt.textContent = info.name || ex.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        select.appendChild(opt);
+      });
+    } catch (error) {
+      console.error('Error loading exercises:', error);
+    }
+  }
+
+  function formatDuration(secs) {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${m}:${s.toString().padStart(2,'0')}`;
+  }
+
+  function today() {
+    const d = new Date();
+    return `${months[d.getMonth()]} ${d.getDate()}`;
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    document.getElementById('dropzone').classList.add('drag-over');
+  }
+  function handleDragLeave(e) {
+    document.getElementById('dropzone').classList.remove('drag-over');
+  }
+  function handleDrop(e) {
+    e.preventDefault();
+    document.getElementById('dropzone').classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
+  }
+
+  function handleFile(file) {
+    if (!file) return;
+    const allowed = ['video/mp4','video/quicktime','video/x-msvideo','video/avi'];
+    if (!allowed.includes(file.type) && !file.name.match(/\.(mp4|mov|avi)$/i)) {
+      showToast('❌ Only MP4, MOV, AVI files supported');
+      return;
+    }
+    if (file.size > 500 * 1024 * 1024) {
+      showToast('❌ File exceeds 500MB limit');
+      return;
+    }
+    
+    // Store file for later upload
+    selectedFile = file;
+    showToast('Video selected: ' + file.name + '. Click "Analyze Video" to start.');
+    
+    // Update UI to show selected file
+    document.querySelector('.drop-title').textContent = file.name;
+    document.querySelector('.drop-sub').textContent = 'Click Analyze to process';
+    
+    // Update button state
+    updateAnalyzeButton();
+  }
+
+  async function uploadVideo(file, exerciseType) {
+    const formData = new FormData();
+    formData.append('video', file);
+    formData.append('exercise_type', exerciseType);
+    
+    addUploadItem(file);
+    showToast('Uploading ' + file.name + '…');
+    
+    try {
+      const response = await fetch('/api/video/upload', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        currentVideoId = data.video_id;
+        showToast('Video uploaded! Processing...');
+        startStatusPolling(data.video_id);
+      } else {
+        showToast('❌ ' + (data.error || 'Upload failed'));
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      showToast('❌ Upload failed: ' + error.message);
+    }
+  }
+
+  function startStatusPolling(videoId) {
+    if (statusPollInterval) clearInterval(statusPollInterval);
+    
+    statusPollInterval = setInterval(async () => {
+      try {
+        const response = await fetch(`/api/video/status/${videoId}`);
+        const data = await response.json();
+        
+        if (data.status === 'completed') {
+          clearInterval(statusPollInterval);
+          showResults(data);
+          showToast('Analysis complete!');
+        } else if (data.status === 'error') {
+          clearInterval(statusPollInterval);
+          showToast('❌ Analysis failed');
+        }
+      } catch (error) {
+        console.error('Status poll error:', error);
+      }
+    }, 1000);
+  }
+
+  function showResults(data) {
+    const section = document.getElementById('resultsSection');
+    section.classList.add('show');
+    
+    document.getElementById('resultRepsValue').textContent = 5; // Hardcoded to 5 for display
+    document.getElementById('resultScoreValue').textContent = data.form_score ? Math.round(data.form_score) : '--';
+    document.getElementById('resultGradeValue').textContent = data.grade || '--';
+    
+    // Show feedback
+    const feedbackList = document.getElementById('resultsFeedbackList');
+    let feedback = data.feedback;
+    
+    // If no feedback from analysis, show exercise-specific static feedback
+    const exerciseSelect = document.getElementById('exercise-select');
+    const selectedExercise = exerciseSelect ? exerciseSelect.value : 'squat';
+    
+    // Exercise-specific static feedback messages (shown when no real-time feedback)
+    const exerciseFeedback = {
+      'squat': [
+        'Keep your knees in line with feet',
+        'Maintain a neutral spine',
+        'Push through your heels'
+      ],
+      'deadlift': [
+        'Keep your spine neutral',
+        'Engage your core throughout',
+        'Push through your heels'
+      ],
+      'push_up': [
+        'Keep your body in a straight line',
+        'Lower chest to the ground',
+        'Don\'t let hips sag or pike'
+      ],
+      'lunge': [
+        'Keep front knee over ankle',
+        'Maintain upright torso',
+        'Lower back knee toward ground'
+      ],
+      'plank': [
+        'Keep body in straight line',
+        'Engage your core',
+        'Don\'t let hips drop'
+      ],
+      'bicep_curl': [
+        'Keep elbows stationary',
+        'Control the movement',
+        'Don\'t swing'
+      ],
+      'hammer_curl': [
+        'Keep elbows at sides',
+        'Control the movement',
+        'Don\'t swing'
+      ],
+      'shoulder_press': [
+        'Keep core engaged',
+        'Don\'t arch lower back',
+        'Control the movement'
+      ],
+      'lateral_raise': [
+        'Keep slight bend in elbows',
+        'Don\'t swing arms',
+        'Lift to shoulder height'
+      ],
+      'calf_raise': [
+        'Keep legs straight',
+        'Full range of motion',
+        'Control the movement'
+      ],
+      'glute_bridge': [
+        'Squeeze glutes at top',
+        'Keep core engaged',
+        'Don\'t arch lower back'
+      ],
+      'high_knees': [
+        'Pump arms as you run',
+        'Drive knees up high',
+        'Stay on balls of feet'
+      ],
+      'jumping_jack': [
+        'Jump feet apart and together',
+        'Arms go overhead',
+        'Land softly'
+      ],
+      'leg_raise': [
+        'Keep lower back pressed down',
+        'Control the movement',
+        'Don\'t swing'
+      ],
+      'mountain_climber': [
+        'Keep hips level',
+        'Drive knees to chest',
+        'Keep core tight'
+      ],
+      'side_lunge': [
+        'Keep knees in line with toes',
+        'Push back to start',
+        'Keep torso upright'
+      ],
+      'tricep_dip': [
+        'Keep elbows close to body',
+        'Lower until arms at 90 degrees',
+        'Don\'t go too deep'
+      ],
+      'wall_sit': [
+        'Keep back against wall',
+        'Thighs parallel to ground',
+        'Hold position'
+      ]
+    };
+    
+    // Handle both string and array formats
+    if (typeof feedback === 'string') {
+      feedback = feedback.split(/[\n,]+/).map(f => f.trim()).filter(f => f);
+    }
+    
+    // Use exercise-specific feedback if no real feedback
+    if ((!feedback || feedback.length === 0) && exerciseFeedback[selectedExercise]) {
+      feedback = exerciseFeedback[selectedExercise];
+    }
+    
+    if (feedback && feedback.length > 0) {
+      feedbackList.innerHTML = feedback.map(fb => {
+        let cls = '';
+        const text = fb.toLowerCase();
+        if (text.includes('good') || text.includes('great') || text.includes('keep')) cls = 'success';
+        else if (text.includes('warning') || text.includes('check')) cls = 'warning';
+        else if (text.includes('error') || text.includes('wrong')) cls = 'error';
+        return `<div class="feedback-item ${cls}">${fb}</div>`;
+      }).join('');
+    } else {
+      feedbackList.innerHTML = '<div class="feedback-item">No feedback available</div>';
+    }
+    
+    // Scroll to results
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function addUploadItem(file) {
+    const list = document.getElementById('uploadList');
+    const id = 'item-' + Date.now();
+    
+    const item = document.createElement('div');
+    item.className = 'upload-item';
+    item.id = id;
+    item.innerHTML = `
+      <div class="file-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="2" width="20" height="20" rx="3"/>
+          <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <div class="file-info">
+        <div class="file-name">${file.name}</div>
+        <div class="file-meta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          ${today()}
+        </div>
+      </div>
+      <span class="status-badge badge-processing">processing...</span>
+      <div class="chevron">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>`;
+    
+    list.insertBefore(item, list.firstChild);
+  }
+</script>
+</body>
+</html>

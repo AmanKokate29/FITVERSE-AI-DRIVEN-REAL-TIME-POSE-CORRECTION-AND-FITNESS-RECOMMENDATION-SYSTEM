@@ -1,0 +1,115 @@
+# Shoulder Press Exercise Definition
+
+name: shoulder_press
+display_name: "Shoulder Press"
+type: repetition
+
+target_muscles:
+  - Shoulders
+  - Triceps
+  - Upper Back
+equipment: "Dumbbells or Barbell"
+difficulty: beginner
+default_reps: 10
+default_sets: 3
+rest_time: "60 seconds"
+benefits:
+  - "Builds shoulder strength"
+  - "Improves overhead mobility"
+  - "Strengthens triceps"
+description: "Overhead press for shoulder development"
+
+angles:
+  primary:
+    points: [left_hip, left_shoulder, left_elbow]
+    description: "Sol omuz açısı"
+  
+  right_shoulder:
+    points: [right_hip, right_shoulder, right_elbow]
+    description: "Sağ omuz açısı"
+  
+  left_elbow:
+    points: [left_shoulder, left_elbow, left_wrist]
+    description: "Sol dirsek açısı"
+  
+  right_elbow:
+    points: [right_shoulder, right_elbow, right_wrist]
+    description: "Sağ dirsek açısı"
+
+state_order:
+  - start
+  - press
+  - top
+
+states:
+  start:
+    condition: "angle < 90"
+    description: "Başlangıç - omuz hizası"
+  
+  press:
+    condition: "angle >= 90 and angle < 160"
+    description: "Kaldırma aşaması"
+  
+  top:
+    condition: "angle >= 160"
+    description: "Üst pozisyon - kollar yukarıda"
+
+counter:
+  trigger_state: top
+  from_state: press
+
+min_rep_duration: 0.8
+
+feedback:
+  arching_back:
+    condition: "left_shoulder_y < left_hip_y - 100"
+    message: "Don't arch your back! Engage your core."
+    severity: warning
+  
+  uneven_arms:
+    condition: "abs(left_wrist_y - right_wrist_y) > 50"
+    message: "Raise both arms evenly!"
+    severity: warning
+
+calibration:
+  enabled: true
+  reps: 3
+
+smoothing:
+  enabled: true
+  window: 3
+
+visualization:
+  lines:
+    - points: [left_shoulder, left_elbow]
+      color: [255, 165, 0]
+      thickness: 3
+    - points: [left_elbow, left_wrist]
+      color: [255, 165, 0]
+      thickness: 3
+    - points: [right_shoulder, right_elbow]
+      color: [255, 165, 0]
+      thickness: 3
+    - points: [right_elbow, right_wrist]
+      color: [255, 165, 0]
+      thickness: 3
+  
+  circles:
+    - point: left_shoulder
+      color: [255, 165, 0]
+      radius: 8
+    - point: left_elbow
+      color: [255, 165, 0]
+      radius: 8
+    - point: left_wrist
+      color: [255, 165, 0]
+      radius: 8
+    - point: right_shoulder
+      color: [255, 165, 0]
+      radius: 8
+    - point: right_elbow
+      color: [255, 165, 0]
+      radius: 8
+    - point: right_wrist
+      color: [255, 165, 0]
+      radius: 8

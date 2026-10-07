@@ -1,0 +1,14 @@
+# Core dependencies
+flask>=2.0.0
+flask-cors>=3.0.0
+opencv-python>=4.5.0
+mediapipe>=0.10.0
+numpy>=1.21.0
+pyyaml>=6.0.0
+
+# Video processing (H.264 codec support for browser-compatible videos)
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.8
+
+# Optional: For better chart rendering in dashboard (included via CDN)
+# matplotlib>=3.5.0

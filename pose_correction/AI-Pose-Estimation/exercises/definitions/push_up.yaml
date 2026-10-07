@@ -1,0 +1,130 @@
+# Push-Up Exercise Definition
+# Target muscles: Chest, Triceps, Shoulders
+
+name: push_up
+display_name: "Push Up"
+type: repetition
+
+# Meta information
+target_muscles:
+  - Chest
+  - Triceps
+  - Shoulders
+  - Core
+equipment: "Bodyweight"
+difficulty: beginner
+default_reps: 10
+default_sets: 3
+rest_time: "45 seconds"
+benefits:
+  - "Builds upper body strength"
+  - "Improves core stability"
+  - "No equipment needed"
+description: "Classic push-up exercise for upper body strength"
+
+# Angle definitions
+angles:
+  primary:
+    points: [left_shoulder, left_elbow, left_wrist]
+    description: "Left arm elbow angle"
+  
+  right_arm:
+    points: [right_shoulder, right_elbow, right_wrist]
+    description: "Right arm elbow angle"
+
+# State machine (FSM)
+state_order:
+  - start
+  - descent
+  - ascent
+
+states:
+  start:
+    condition: "angle > 150"
+    description: "Starting position - arms extended"
+  
+  descent:
+    condition: "angle > 70 and angle <= 150"
+    description: "Descent phase"
+  
+  ascent:
+    condition: "angle <= 70"
+    description: "Bottom position - counter increases"
+
+# Counter rule
+counter:
+  trigger_state: ascent
+  from_state: descent
+
+# Time filter
+min_rep_duration: 1.0
+
+
+# Form feedback
+feedback:
+  hips_too_high:
+    condition: "left_hip_y < left_shoulder_y - 30"
+    message: "Hips too high! Keep your body in a straight line."
+    severity: warning
+  
+  hips_sagging:
+    condition: "left_hip_y > left_shoulder_y + 50"
+    message: "Hips sagging! Engage your core and keep a straight line."
+    severity: warning
+  
+  arms_too_wide:
+    condition: "abs(left_elbow_x - left_shoulder_x) > 100"
+    message: "Arms too wide! Keep elbows at 45 degrees."
+    severity: info
+
+# Kalibrasyon
+calibration:
+  enabled: true
+  reps: 3
+
+# Smoothing
+smoothing:
+  enabled: true
+  window: 3
+
+# Görselleştirme
+visualization:
+  lines:
+    - points: [left_shoulder, left_elbow]
+      color: [0, 0, 255]
+      thickness: 2
+    - points: [left_elbow, left_wrist]
+      color: [0, 0, 255]
+      thickness: 2
+    - points: [right_shoulder, right_elbow]
+      color: [102, 0, 0]
+      thickness: 2
+    - points: [right_elbow, right_wrist]
+      color: [102, 0, 0]
+      thickness: 2
+  
+  circles:
+    - point: left_shoulder
+      color: [0, 0, 255]
+      radius: 8
+    - point: left_elbow
+      color: [0, 0, 255]
+      radius: 8
+    - point: left_wrist
+      color: [0, 0, 255]
+      radius: 8
+    - point: right_shoulder
+      color: [102, 0, 0]
+      radius: 8
+    - point: right_elbow
+      color: [102, 0, 0]
+      radius: 8
+    - point: right_wrist
+      color: [102, 0, 0]
+      radius: 8
+  
+  angle_display:
+    - angle: primary
+      position: left_elbow
+      offset: [10, -10]
+      label: "Angle"
