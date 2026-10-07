@@ -77,7 +77,7 @@ FITVERSE
 
 ## Screenshots
 
-## Screenshots
+### FitVerse Web
 
 <table>
 <tr>
@@ -104,6 +104,7 @@ FITVERSE
 <img src="./screenshots/4mealplan.jpg" alt="Meal Plan" width="100%">
 
 </td>
+---
 </tr>
 
 <tr>
