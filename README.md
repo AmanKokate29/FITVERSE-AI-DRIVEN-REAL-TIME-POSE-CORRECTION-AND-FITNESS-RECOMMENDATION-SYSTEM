@@ -55,26 +55,6 @@ The project is divided into three main components:
 
 ---
 
-## Project Architecture
-
-```text
-FITVERSE
-│
-├── FitVerse/
-│   └── FitVerse_Web/
-│       └── Web Application
-│
-├── pose_correction/
-│   └── AI-Pose-Estimation/
-│       └── Real-Time Pose Correction
-│
-├── recommender/
-│   └── Diet_Workout-planner/
-│       └── Diet & Workout Recommendation System
-│
-└── README.md
-```
-
 ## Screenshots
 
 ## FitVerse Web
