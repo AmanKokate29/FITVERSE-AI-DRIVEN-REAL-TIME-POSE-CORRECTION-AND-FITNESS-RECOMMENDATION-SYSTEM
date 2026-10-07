@@ -37,3 +37,7 @@ node_modules/
 dist/
 build/
 
+
+# IDE
+.idea/
+.vscode/
