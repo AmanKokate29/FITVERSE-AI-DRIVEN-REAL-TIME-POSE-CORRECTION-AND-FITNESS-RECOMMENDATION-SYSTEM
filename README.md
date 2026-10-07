@@ -77,31 +77,18 @@ FITVERSE
 
 ## Screenshots
 
-### FitVerse Web
+## Screenshots
 
 <table>
 <tr>
 <td width="50%">
 
-<img src="./screenshots/home.jpg" alt="FitVerse Home" width="100%">
+<img src="./screenshots/1home.jpg" alt="FitVerse Home" width="100%">
 
 </td>
 <td width="50%">
 
-<img src="./screenshots/dashboard2.jpg" alt="FitVerse Dashboard" width="100%">
-
-</td>
-</tr>
-
-<tr>
-<td width="50%">
-
-<img src="./screenshots/exercisescoredashboard.jpg" alt="Exercise Score Dashboard" width="100%">
-
-</td>
-<td width="50%">
-
-<img src="./screenshots/exercisetracking.jpg" alt="Exercise Tracking" width="100%">
+<img src="./screenshots/2tracker.jpg" alt="Progress Tracker" width="100%">
 
 </td>
 </tr>
@@ -109,25 +96,12 @@ FITVERSE
 <tr>
 <td width="50%">
 
-<img src="./screenshots/tracker.jpg" alt="Progress Tracker" width="100%">
+<img src="./screenshots/3tracker.jpg" alt="Progress Tracker Details" width="100%">
 
 </td>
 <td width="50%">
 
-<img src="./screenshots/tracker1.jpg" alt="Progress Tracker Details" width="100%">
-
-</td>
-</tr>
-
-<tr>
-<td width="50%">
-
-<img src="./screenshots/mealplan.jpg" alt="Meal Plan" width="100%">
-
-</td>
-<td width="50%">
-
-<img src="./screenshots/detiles.jpg" alt="Exercise Details" width="100%">
+<img src="./screenshots/4mealplan.jpg" alt="Meal Plan" width="100%">
 
 </td>
 </tr>
@@ -135,29 +109,12 @@ FITVERSE
 <tr>
 <td width="50%">
 
-<img src="./screenshots/recommeder.jpg" alt="Fitness Recommendations" width="100%">
+<img src="./screenshots/5poseestimationdashboard.jpg" alt="Pose Estimation Dashboard" width="100%">
 
 </td>
 <td width="50%">
 
-</td>
-</tr>
-</table>
-
----
-
-### AI Pose Estimation
-
-<table>
-<tr>
-<td width="50%">
-
-<img src="./screenshots/poseestimationdashboard.jpg" alt="Pose Estimation Dashboard" width="100%">
-
-</td>
-<td width="50%">
-
-<img src="./screenshots/result.jpg" alt="Pose Analysis Result" width="100%">
+<img src="./screenshots/6exercisetracking.jpg" alt="Exercise Tracking" width="100%">
 
 </td>
 </tr>
@@ -165,10 +122,38 @@ FITVERSE
 <tr>
 <td width="50%">
 
-<img src="./screenshots/videoanalysis.jpg" alt="Video Analysis" width="100%">
+<img src="./screenshots/7videoanalysis.jpg" alt="Video Analysis" width="100%">
 
 </td>
 <td width="50%">
+
+<img src="./screenshots/8exercisescoredashboard.jpg" alt="Exercise Score Dashboard" width="100%">
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+<img src="./screenshots/9dashboard2.jpg" alt="Dashboard" width="100%">
+
+</td>
+<td width="50%">
+
+<img src="./screenshots/10recommeder.jpg" alt="Fitness Recommendations" width="100%">
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+<img src="./screenshots/11detiles.jpg" alt="Exercise Details" width="100%">
+
+</td>
+<td width="50%">
+
+<img src="./screenshots/12result.jpg" alt="Pose Analysis Result" width="100%">
 
 </td>
 </tr>
