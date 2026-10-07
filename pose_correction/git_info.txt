@@ -1,0 +1,23 @@
+$ git rev-parse --show-toplevel
+C:/Users/amank/OneDrive/Desktop/pose_correction/AI-Pose-Estimation
+
+ERR:
+RC:0
+
+$ git status --short --untracked-files=no
+ M db/workouts.json
+ M exercises/definitions/bicep_curl.yaml
+ M exercises/definitions/high_knees.yaml
+ M exercises/definitions/mountain_climber.yaml
+ M exercises/engine.py
+ M pose_estimation/estimation.py
+
+ERR:
+RC:0
+
+$ git remote -v
+origin	https://github.com/AdityaHire/AI-Pose-Estimation.git (fetch)
+origin	https://github.com/AdityaHire/AI-Pose-Estimation.git (push)
+
+ERR:
+RC:0
