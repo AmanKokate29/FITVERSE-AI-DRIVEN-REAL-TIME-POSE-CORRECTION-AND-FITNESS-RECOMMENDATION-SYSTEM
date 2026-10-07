@@ -73,5 +73,6 @@ FITVERSE
 │       └── Diet & Workout Recommendation System
 │
 └── README.md
+```
 
 <img src="./screenshots/home.jpg" alt="FitVerse Home" width="100%">
