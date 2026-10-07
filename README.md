@@ -77,7 +77,7 @@ FITVERSE
 
 ## Screenshots
 
-### FitVerse Web
+## FitVerse Web
 
 <table>
 <tr>
@@ -104,9 +104,12 @@ FITVERSE
 <img src="./screenshots/4mealplan.jpg" alt="Meal Plan" width="100%">
 
 </td>
----
 </tr>
+</table>
 
+## AI Pose Correction & Exercise Tracking
+
+<table>
 <tr>
 <td width="50%">
 
@@ -136,12 +139,25 @@ FITVERSE
 <tr>
 <td width="50%">
 
-<img src="./screenshots/9dashboard2.jpg" alt="Dashboard" width="100%">
+<img src="./screenshots/9dashboard2.jpg" alt="AI Pose Correction Dashboard" width="100%">
+
+</td>
+<td width="50%"></td>
+</tr>
+</table>
+
+## Diet & Workout Recommender
+
+<table>
+<tr>
+<td width="50%">
+
+<img src="./screenshots/10recommeder.jpg" alt="Fitness Recommendations" width="100%">
 
 </td>
 <td width="50%">
 
-<img src="./screenshots/10recommeder.jpg" alt="Fitness Recommendations" width="100%">
+<img src="./screenshots/11detiles.jpg" alt="Exercise Details" width="100%">
 
 </td>
 </tr>
@@ -149,13 +165,9 @@ FITVERSE
 <tr>
 <td width="50%">
 
-<img src="./screenshots/11detiles.jpg" alt="Exercise Details" width="100%">
-
-</td>
-<td width="50%">
-
 <img src="./screenshots/12result.jpg" alt="Pose Analysis Result" width="100%">
 
 </td>
+<td width="50%"></td>
 </tr>
 </table>
